@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eventify</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar">
+        <div class="logo"><img src="asserts/logo.svg" alt="" />Eventify</div>
+        <ul class="nav-links">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Events</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+
+        <div
+          id="g_id_onload"
+          data-client_id="663997612183-gf37tabas8ds2e7pt6p5h1v2hrq3opiv.apps.googleusercontent.com"
+          data-callback="handleCredentialResponse"
+        ></div>
+        <div class="g_id_signin" data-type="standard"></div>
+      </nav>
+
+      <div class="hero">
+        <video autoplay muted loop class="background-video">
+          <source src="asserts/background-video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div class="hero-content">
+          <h1>Don't miss out!</h1>
+          <p>Explore the vibrant events happening locally and globally.</p>
+        </div>
+      </div>
+    </header>
+    <script   src="script.js"></script>
+  </body>
+</html>
