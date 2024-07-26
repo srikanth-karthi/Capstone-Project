@@ -97,7 +97,8 @@ namespace EventManagementApp.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
-        [HttpPost("checkin/{TicketId}")]
+        [AllowAnonymous]
+        [HttpGet("checkin/{TicketId}")]
         public async Task<IActionResult> CheckInTicket(string TicketId)
         {
 

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobiscroll Calendar</title>
+    <link rel="stylesheet" href="https://cdn.mobiscroll.com/5.9.0/css/mobiscroll.min.css">
+</head>
+<body>
+    <div id="demo"></div>
+    <div id="toast" class="toast"></div>
+    <script src="https://cdn.mobiscroll.com/5.9.0/js/mobiscroll.javascript.min.js"></script>
+    <script >
+     var inst = mobiscroll.eventcalendar('#demo-desktop-month-view', {
+  theme: 'ios',
+  themeVariant: 'light',
+  clickToCreate: false,
+  dragToCreate: false,
+  dragToMove: false,
+  dragToResize: false,
+  eventDelete: false,
+  view: {
+    calendar: { labels: true },
+  },
+  onEventClick: function (args) {
+    mobiscroll.toast({
+      message: args.event.title,
+    });
+  },
+});
+
+mobiscroll.getJson(
+  'https://trial.mobiscroll.com/events/?vers=5',
+  function (events) {
+    inst.setEvents(events);
+  },
+  'jsonp',
+);
+  
+
+    </script>
+</body>
+</html>

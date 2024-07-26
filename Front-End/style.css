@@ -11,62 +11,122 @@ header {
     position: relative;
     overflow: hidden;
 }
-
+ 
 .navbar {
+    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 50px;
+    padding: 15px 50px;
     background-color: rgb(0, 0, 0);
-}
-
-.navbar .logo {
+  }
+  
+  .navbar .logo {
     display: flex;
+    font-family: "Lalezar", system-ui;
+    letter-spacing: 1.2px;
+    color: rgba(255, 224, 71, 1);
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     font-size: 24px;
     font-weight: bold;
-}
-
-.navbar .logo img {
+  }
+  
+  .navbar .logo img {
     width: 50px;
-} 
-.navbar .nav-links {
+  }
+  
+  .navbar .nav-links {
     list-style: none;
     display: flex;
-        margin-left: 20px;
+    padding-left: 50px;
     gap: 20px;
-}
-
-.navbar .nav-links li {
+  }
+  
+  .navbar .nav-links li {
     display: inline;
-}
-
-.navbar .nav-links a {
-
+  }
+  
+  .navbar .nav-links a {
     color: white;
     text-decoration: none;
     font-weight: bold;
-}
-
-.navbar .auth-buttons button {
+  }
+  
+  .navbar .headericons {
+    display: flex;
+    gap: 30px;
+  }
+  
+  .navbar .headericons img {
+    width: 30px;
+  }
+  
+  .navbar .auth-buttons button {
     margin-left: 10px;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
-}
-
-.navbar .auth-buttons button:first-child {
+  }
+  
+  .navbar .auth-buttons button:first-child {
     background-color: transparent;
     color: white;
-}
-
-.navbar .auth-buttons button:last-child {
-    background-color: #FFD700;
+  }
+  
+  .navbar .auth-buttons button:last-child {
+    background-color: #ffd700;
     color: black;
-}
-
+  }
+  
+  .hamburger-menu {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+  }
+  
+  .hamburger-menu .bar {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+  }
+  
+  @media (max-width: 768px) {
+    .navbar {
+      padding: 15px 20px;
+    }
+  
+    .navbar .nav-links {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      background-color: rgb(0, 0, 0);
+      width: 200px;
+      border-radius: 5px;
+      padding: 10px 0;
+    }
+  
+    .navbar .nav-links.active {
+      display: flex;
+    }
+  
+    .navbar .nav-links li {
+      margin: 10px 0;
+      text-align: center;
+    }
+  
+    .navbar .headericons {
+      display: none;
+    }
+  
+    .hamburger-menu {
+      display: flex;
+    }
+  }
 .hero {
     position: relative;
     height: 100vh;

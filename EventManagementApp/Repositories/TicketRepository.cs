@@ -26,7 +26,9 @@ namespace EventManagementApp.Repositories
         public async Task<List<Tickets>> GetTicketsForUser(int userId)
         {
             return await _context.Tickets
+                .Include(t => t.Event)
                 .Where(t => t.UserId == userId)
+                
                 .ToListAsync();
         }
 
@@ -38,14 +40,13 @@ namespace EventManagementApp.Repositories
                 return null;
             }
 
-            
-            if (ticket.CheckedInTickets <= ticket.NumberOfTickets)
+            if (ticket.CheckedInTickets + numberOfTicketsToCheckIn <= ticket.NumberOfTickets)
             {
-                ticket.CheckedInTickets -= numberOfTicketsToCheckIn;
+                ticket.CheckedInTickets += numberOfTicketsToCheckIn;
             }
             else
             {
-                throw new NotEnoughTicketsException("No tickets available.");
+                throw new NotEnoughTicketsException("Not enough tickets available.");
             }
 
             _context.Tickets.Update(ticket);
@@ -53,6 +54,7 @@ namespace EventManagementApp.Repositories
 
             return ticket;
         }
+
         public override async Task<Tickets> Add(Tickets ticket)
         {
             var eventToUpdate = await _context.Events.FindAsync(ticket.EventId);

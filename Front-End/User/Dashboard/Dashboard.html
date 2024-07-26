@@ -4,118 +4,255 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Eventify</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lalezar&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="Dashboard.css" />
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link rel="stylesheet" href="../../Package/toster.css" />
   </head>
   <body>
     <nav class="navbar">
-        <div class="logo">
-          <img src="../../asserts/logo.svg" alt="" />Eventify
-        </div>
-        <ul class="nav-links">
-          <li><a href="#">Home</a></li>
-          <li><a href="/">Events</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <div class="headericons">
-          <a href="#" rel="noopener noreferrer"><img src="../../asserts/Ticket.svg" alt="" /></a>
-          <img src="../../asserts/Profileicon.svg" alt="" />
-        </div>
-        <div class="hamburger-menu">
-          <div class="bar"></div>
-          <div class="bar"></div>
-          <div class="bar"></div>
-        </div>
-      </nav>
-      
-    <section class="events">
-      <h2>Our Events</h2>
-      <div class="event-list"></div>
-    </section>
-    <div class="main-banner">
+      <div class="logo">
+   
+        <img src="../../asserts/logo.svg" alt="" />Eventify
+      </div>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="Front-End/User/Quotation/Quotation.html">Quotation</a></li>
+        <li><a href="#">Orders</a></li>
+        <li><a href="#">Sheduled-Orders</a></li>
+      </ul>
+      <div class="headericons">
+        <a href="#" rel="noopener noreferrer"
+          ><img src="../../asserts/Ticket.svg" alt=""
+        /></a>
+        <img src="../../asserts/Profileicon.svg" alt="" />
+      </div>
+      <div class="hamburger-menu">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </nav>
+    <div class="main-content">
+      <section class="events">
+        <h2>Our Events</h2>
+        <div class="event-list"></div>
+      </section>
+      <div class="main-banner">
         <img
-            loading="lazy"
-            srcset="https://cdn.builder.io/api/v1/image/assets/TEMP/b1db16e770285ada4aae4cfdb8eb33716eaee83a2dc3fddd507591accc7b3b91?apiKey=c19e88c29c3c49868cfce1b4d0c018d7&width=100 100w, https://cdn.builder.io/api/v1/image/assets/TEMP/b1db16e770285ada4aae4cfdb8eb33716eaee83a2dc3fddd507591accc7b3b91?apiKey=c19e88c29c3c49868cfce1b4d0c018d7&width=200 200w, https://cdn.builder.io/api/v1/image/assets/TEMP/b1db16e770285ada4aae4cfdb8eb33716eaee83a2dc3fddd507591accc7b3b91?apiKey=c19e88c29c3c49868cfce1b4d0c018d7&width=400 400w"
-            class="main-banner-img"
-            alt="Event Image"
+          loading="lazy"
+          srcset="
+            https://cdn.builder.io/api/v1/image/assets/TEMP/b1db16e770285ada4aae4cfdb8eb33716eaee83a2dc3fddd507591accc7b3b91?apiKey=c19e88c29c3c49868cfce1b4d0c018d7&width=100 100w,
+            https://cdn.builder.io/api/v1/image/assets/TEMP/b1db16e770285ada4aae4cfdb8eb33716eaee83a2dc3fddd507591accc7b3b91?apiKey=c19e88c29c3c49868cfce1b4d0c018d7&width=200 200w,
+            https://cdn.builder.io/api/v1/image/assets/TEMP/b1db16e770285ada4aae4cfdb8eb33716eaee83a2dc3fddd507591accc7b3b91?apiKey=c19e88c29c3c49868cfce1b4d0c018d7&width=400 400w
+          "
+          class="main-banner-img"
+          alt="Event Image"
         />
         <div class="main-banner-content">
-            <div class="main-banner-text">Create an event with Eventify</div>
-            <div class="create-event-button">
-                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/a7e79f3bb0e16012f60007a865f5a50b395bda4fef7f5218e3398cee53a723e8?apiKey=c19e88c29c3c49868cfce1b4d0c018d7" alt="Create Event" class="create-event-icon">
-                <div>Create Event</div>
-            </div>
+          <div class="main-banner-text">Create an event with Eventify</div>
+          <div class="create-event-button">
+            <img
+              loading="lazy"
+              src="https://cdn.builder.io/api/v1/image/assets/TEMP/a7e79f3bb0e16012f60007a865f5a50b395bda4fef7f5218e3398cee53a723e8?apiKey=c19e88c29c3c49868cfce1b4d0c018d7"
+              alt="Create Event"
+              class="create-event-icon"
+            />
+            <div>Create Event</div>
+          </div>
         </div>
-    </div>
-    <section class="services">
-      <h2>Our Services</h2>
-      <div class="service-list">
-        <div class="service-item">Service 1</div>
-        <div class="service-item">Service 2</div>
-        <div class="service-item">Service 3</div>
       </div>
-      <button>See More</button>
-    </section>
+      <section class="services">
+        <h2>Our Services</h2>
+        <div class="service-list"></div>
+        <button id="seeMoreBtn">See More</button>
+      </section>
 
-        <div class="container">
-            <div class="inner-container">
-                <div class="section">
-                    <div class="company-info">
-                        <div class="section-title">Company Info</div>
-                        <div class="item">About Us</div>
-                        <div class="item">Contact Us</div>
-                        <div class="item">Careers</div>
-                        <div class="item">FAQs</div>
-                        <div class="item">Terms of Service</div>
-                        <div class="item">Privacy Policy</div>
-                    </div>
-                    <div class="help">
-                        <div class="section-title">Help</div>
-                        <div class="item">Account Support</div>
-                        <div class="item">Listing Events</div>
-                        <div class="item">Event Ticketing</div>
-                    
-                    </div>
-                  
-                    <div class="follow-us">
-                        <div class="section-title">Follow Us</div>
-                        <div class="item">Facebook</div>
-                        <div class="item">Instagram</div>
-                        <div class="item">Twitter</div>
-                        <div class="item">Youtube</div>
-                    </div>
-                    <div class="download-app">
-                        <div class="download-title">Download The App</div>
-                        <div class="download-app-container">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3a563cdba32612ce0dfc77ca21d0f2bedf405e6d9e91c7f28526033bf5714455" class="download-icon" />
-                            <div class="download-text">
-                                <div class="download-subtext">Get it on</div>
-                                <div class="download-maintext">Google Play</div>
-                            </div>
-                        </div>
-                        <div class="download-app-container-alt">
-                            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/850331c1684a50981e2f1489bfd65e3d6924ea784f3e213f05f9317274fe2749" class="download-icon download-icon-alt" />
-                            <div class="download-text">
-                                <div class="download-subtext">Download on the</div>
-                                <div class="download-maintext">App Store</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer">
-                  
-                    <div class="footer-text">2024 Eventify. All rights reserved.</div>
-                </div>
+      <div class="container">
+        <div class="inner-container">
+          <div class="section">
+            <div class="company-info">
+              <div class="section-title">Eventify</div>
+              <div class="item">About Us</div>
+              <div class="item">Contact Us</div>
+              <div class="item">Careers</div>
+              <div class="item">FAQs</div>
+              <div class="item">Terms of Service</div>
+              <div class="item">Privacy Policy</div>
             </div>
-        </div>
+            <div class="help">
+              <div class="section-title">Help</div>
+              <div class="item">Account Support</div>
+              <div class="item">Listing Events</div>
+              <div class="item">Event Ticketing</div>
+            </div>
 
+            <div class="follow-us">
+              <div class="section-title">Follow Us</div>
+              <div class="item">Facebook</div>
+              <div class="item">Instagram</div>
+              <div class="item">Twitter</div>
+              <div class="item">Youtube</div>
+            </div>
+            <div class="download-app">
+              <div class="download-title">Download The App</div>
+              <div class="download-app-container">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/3a563cdba32612ce0dfc77ca21d0f2bedf405e6d9e91c7f28526033bf5714455"
+                  class="download-icon"
+                />
+                <div class="download-text">
+                  <div class="download-subtext">Get it on</div>
+                  <div class="download-maintext">Google Play</div>
+                </div>
+              </div>
+              <div class="download-app-container-alt">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/850331c1684a50981e2f1489bfd65e3d6924ea784f3e213f05f9317274fe2749"
+                  class="download-icon download-icon-alt"
+                />
+                <div class="download-text">
+                  <div class="download-subtext">Download on the</div>
+                  <div class="download-maintext">App Store</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer">
+            <div class="footer-text">2024 Eventify. All rights reserved.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="event-container" style="display: none">
+      <div class="banner-container">
+        <button id="backButton" class="back-button">←</button>
+        <div class="event-details" id="eventDetails">
+          <img src="" alt="Event Image" class="event-banner" />
+        </div>
+      </div>
+      <h1 id="eventTitle">Event Title</h1>
+      <div class="event-info">
+        <div class="event-date-time">
+          <p><strong>Date and Time</strong></p>
+          <p id="eventDate">Date</p>
+          <p id="eventTime">Time</p>
+        </div>
+        <div class="event-ticket">
+          <h2>Ticket Information</h2>
+          <p id="ticketCost">Ticket Cost</p>
+          <div class="ticket-quantity">
+            <p>Quantity</p>
+            <button id="decrease">-</button>
+            <span id="quantity">1</span>
+            <button id="increase">+</button>
+          </div>
+          <button class="buy-tickets" onclick="openModal()">
+            <img
+              src="../../asserts/ticket-btn.svg"
+              width="20"
+              alt="ticket-icon"
+            />
+            <div id="book-tickets">Book Tickets</div>
+          </button>
+        </div>
+        <div class="event-host">
+          <h2>Event Description</h2>
+          <p id="eventHost">Host</p>
+        </div>
+        <div class="event-location">
+          <h2>Location</h2>
+          <p id="eventLocation">Location</p>
+          <iframe
+            id="eventMap"
+            width="600"
+            height="450"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="event-category-container" style="display: none">
+      <div class="event-category-banner-container">
+        <button id="event-category-back-button" class="event-category-back-button">←</button>
+        <div class="event-details" id="eventDetails">
+          <img src="" alt="Event Image" class="event-category-banner" />
+        </div>
+      </div>
+      <h1 id="event-category-eventTitle">Event Title</h1>
+      <div class="event-info">
+       
+        <div class="event-category-description">
+          <h2>Service Description</h2>
+          <p id="event-category-Description">Host</p>
+        </div>
+        <button class="raiseQuataion" onclick="openeventCategoryModal()">
+          <div id="book-tickets">Raise Quotation</div>
+        </button>
+      </div>
+    </div>
+    
+    <div class="modal" id="formModal">
+      <div class="modal-content" id="formContent">
+        <div class="modal-header">
+          <div class="modal-title">Form Title</div>
+          <button class="close-button" onclick="closeModal()">×</button>
+        </div>
+        <form id="form" onsubmit="return validateForm(event)">
+          <div class="form-group">
+            <label for="vunuetype">Vunuetype</label>
+            <select id="vunuetype" name="vunuetype" required>
+              <option value="">Select</option>
+              <option value="OwnVenue">OwnVenue</option>
+              <option value="PrivateVenue">Private-Venue</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="food">Food</label>
+            <select id="food" name="food" required onchange="toggleCateringDescription()">
+              <option value="">Select</option>
+              <option value="NoFood">NoFood</option>
+              <option value="Veg">Veg</option>
+              <option value="NonVeg">Non Veg</option>
+              <option value="Both">Both Veg and Nonveg</option>
+            </select>
+          </div>
+          <div class="form-group catering-description">
+            <label for="catering_description">Catering Instructions</label>
+            <input type="text" id="catering_description" name="catering_description" placeholder="Testavre">
+          </div>
+          <div class="form-group">
+            <label for="special_description">Special Instructions</label>
+            <input type="text" id="special_description" name="special_description" placeholder="Testavre" required>
+          </div>
+          <div class="form-group">
+            <label for="locationDetails">Location Details</label>
+            <input type="text" id="locationDetails" name="locationDetails" placeholder="Testavre" required>
+          </div>
+          <div class="form-group">
+            <label for="start_date">Start Date & Time</label>
+            <input type="datetime-local" id="start_date" name="start_date" required>
+          </div>
+          <div class="form-group">
+            <label for="end_date">End Date & Time</label>
+            <input type="datetime-local" id="end_date" name="end_date" required>
+          </div>
+          <div class="buttons">
+            <button type="submit" class="button submit">Submit</button>
+            
+          </div>
+        </form>
+      </div>
+    </div>
     <script type="module" src="Dashboard.js"></script>
   </body>
 </html>
 
-    <style>
-   
-    </style>
+<style></style>

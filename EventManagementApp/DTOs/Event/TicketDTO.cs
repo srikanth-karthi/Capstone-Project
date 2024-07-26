@@ -9,6 +9,8 @@
         public int NumberOfTickets { get; set; }
         public decimal? TicketCost { get; set; }
         public int? UserId { get; set; }
-        public int  EventId { get; set;}
+        public int EventId { get; set; }
+
+         public string? EventName { get; set; }
     }
 }

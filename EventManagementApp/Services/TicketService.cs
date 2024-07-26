@@ -22,7 +22,7 @@ public class TicketService : ITicketService
         _userRepository = userRepository;
     }
 
-    public async Task<PaymentResponseDTO> BookTicket(TicketDTO ticketDto,int UserID)
+    public async Task<PaymentResponseDTO> BookTicket(TicketDTO ticketDto, int UserID)
     {
         if (ticketDto == null) throw new ArgumentNullException(nameof(ticketDto));
 
@@ -45,10 +45,10 @@ public class TicketService : ITicketService
             AttendeeName = user.FullName,
             AttendeeEmail = user.Email,
             NumberOfTickets = ticketDto.NumberOfTickets,
-            CheckedInTickets = ticketDto.NumberOfTickets,
+            CheckedInTickets = 0,
             TicketCost = eventDetails.TicketCost,
             TicketId = ticketId,
-            PaymentStatus = PaymentStatus.Pending 
+            PaymentStatus = PaymentStatus.Pending
         };
 
         await _ticketRepository.Add(newTicket);
@@ -83,9 +83,10 @@ public class TicketService : ITicketService
         return ticket;
     }
 
-    public async Task<List<Tickets>> GetTicketsForUser(int userId)
+    public async Task<IEnumerable<TicketDTO>> GetTicketsForUser(int userId)
     {
-        return await _ticketRepository.GetTicketsForUser(userId);
+        var tickets= await _ticketRepository.GetTicketsForUser(userId);
+        return tickets.Select(j => Ticketmapper(j));
     }
 
     public async Task<Tickets> CheckInTicket(string ticketId, int numberOfTicketsToCheckIn)
@@ -96,5 +97,21 @@ public class TicketService : ITicketService
             throw new InvalidOperationException("Ticket not found or invalid check-in attempt.");
         }
         return ticket;
+    }
+
+    public static TicketDTO Ticketmapper(Tickets ticket)
+    {
+        return new TicketDTO
+        {
+            TicketId = ticket.TicketId,
+            AttendeeName = ticket.AttendeeName,
+            AttendeeEmail = ticket.AttendeeEmail,
+            CheckedInTickets = ticket.CheckedInTickets,
+            NumberOfTickets = ticket.NumberOfTickets,
+            TicketCost = ticket.TicketCost,
+            UserId = ticket.UserId,
+            EventId = ticket.EventId,
+            EventName = ticket.Event?.EventName 
+        };
     }
 }
