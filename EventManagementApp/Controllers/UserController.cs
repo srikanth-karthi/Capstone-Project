@@ -122,7 +122,13 @@ namespace EventManagementApp.Controllers
                 int UserId = int.Parse(User.FindFirst("userId").Value.ToString());
 
                 await _userService.ReviewAnOrder(UserId, OrderId, ReviewDTO);
-                return Ok("Your review is added successfully");
+                var response = new
+                {
+                    Status = "Success",
+                    Message = "Your review is added successfully"
+                };
+
+                return Ok(response);
             }
             catch (NoOrderFoundException ex)
             {

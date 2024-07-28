@@ -9,4 +9,5 @@ public interface ITicketService
     Task<Tickets> ConfirmTicket(ConfirmPaymentDTO confirmPaymentDTO);
     Task<Tickets> CheckInTicket(string ticketId, int numberOfTicketsToCheckIn);
     Task<IEnumerable<TicketDTO>> GetTicketsForUser(int userId);
+    Task<PaymentResponseDTO> RepaymentTicket(string tickedid);
 }

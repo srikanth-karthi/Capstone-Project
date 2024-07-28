@@ -4,6 +4,7 @@ using EventManagementApp.Interfaces.Repository;
 using EventManagementApp.Interfaces.Service;
 using EventManagementApp.Models;
 using EventManagementApp.Repositories;
+using Razorpay.Api;
 using System;
 using System.Threading.Tasks;
 
@@ -99,6 +100,24 @@ public class TicketService : ITicketService
         return ticket;
     }
 
+    public async Task<PaymentResponseDTO> RepaymentTicket(string tickedid)
+    {
+
+        var ticket = await _ticketRepository.GetById(tickedid);
+        if (ticket == null)
+        {
+            throw new InvalidOperationException("Ticket not found.");
+        }
+
+        return new PaymentResponseDTO
+        {
+            RazorpayOrderId =  await _paymentService.CreateOrder(ticket.TicketCost * ticket.NumberOfTickets),
+            contentId = ticket.TicketId,
+            Amount = ticket.TicketCost*ticket.NumberOfTickets,
+        };
+    }
+
+
     public static TicketDTO Ticketmapper(Tickets ticket)
     {
         return new TicketDTO
@@ -110,6 +129,7 @@ public class TicketService : ITicketService
             NumberOfTickets = ticket.NumberOfTickets,
             TicketCost = ticket.TicketCost,
             UserId = ticket.UserId,
+            PaymentStatus=ticket.PaymentStatus,
             EventId = ticket.EventId,
             EventName = ticket.Event?.EventName 
         };

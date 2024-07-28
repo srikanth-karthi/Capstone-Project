@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using EventManagementApp.Context;
+using EventManagementApp.Enums;
 using EventManagementApp.Exceptions;
 using EventManagementApp.Interfaces.Repository;
 using EventManagementApp.Models;
@@ -39,7 +40,9 @@ namespace EventManagementApp.Repositories
             {
                 return null;
             }
-
+            if(ticket.PaymentStatus==PaymentStatus.Pending) {
+                throw new InvalidOperationException("Payment verification failed.");
+            }
             if (ticket.CheckedInTickets + numberOfTicketsToCheckIn <= ticket.NumberOfTickets)
             {
                 ticket.CheckedInTickets += numberOfTicketsToCheckIn;
@@ -65,7 +68,7 @@ namespace EventManagementApp.Repositories
 
             if (eventToUpdate.RemainingTickets < ticket.NumberOfTickets)
             {
-                throw new NotEnoughTicketsException("Not enough tickets available.");
+                throw new NotEnoughTicketsException(eventToUpdate.RemainingTickets.ToString());
             }
 
             eventToUpdate.RemainingTickets -= ticket.NumberOfTickets;

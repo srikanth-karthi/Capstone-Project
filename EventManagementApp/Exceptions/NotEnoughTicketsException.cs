@@ -5,9 +5,7 @@ namespace EventManagementApp.Exceptions
     [Serializable]
     internal class NotEnoughTicketsException : Exception
     {
-        public NotEnoughTicketsException()
-        {
-        }
+  
 
         public NotEnoughTicketsException(string? message) : base(message)
         {

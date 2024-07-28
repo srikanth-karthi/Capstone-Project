@@ -58,8 +58,14 @@ namespace EventManagementApp.Services
             request.EventEndDate = quotationRequestDTO.EventEndDate;
 
 
+                    if(eventCategory.IsService) {
+                request.FoodPreference = null;
+                request.CateringInstructions = null;
 
-                    await _quotationRequestRepository.Add(request);
+
+            }
+
+            await _quotationRequestRepository.Add(request);
 
 
                     return request.QuotationRequestId;

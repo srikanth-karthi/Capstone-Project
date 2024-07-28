@@ -24,7 +24,7 @@ async function api(response) {
             }
             else 
             {
-                window.location.href = "/Front-End/User/Dashboard/Dashboard.html?authid=1";
+                window.location.href = "/User/Dashboard/Dashboard.html?authid=1";
             }
     } catch (e) {
         console.log(e);

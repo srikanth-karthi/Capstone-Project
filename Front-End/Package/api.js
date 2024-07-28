@@ -25,9 +25,12 @@ export async function fetchData(
       return;
     }
     if (!response.ok) {
+      const errorBody = await response.json();
       const errorMessage = `Error ${response.status}: ${response.statusText}`;
-      throw new Error(errorMessage);
+      const errorDetails = { status: response.status, statusText: response.statusText, body: errorBody };
+      throw new Error(JSON.stringify(errorDetails));
     }
+
   
     const data = await response.json();
     return data;

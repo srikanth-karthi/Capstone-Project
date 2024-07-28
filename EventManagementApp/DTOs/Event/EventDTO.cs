@@ -12,17 +12,20 @@ namespace EventManagementApp.DTOs
         [StringLength(100)]
         public string EventName { get; set; }
 
-        [StringLength(500)]
+  
         public string Description { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
         [EventDateValidation(ErrorMessage = "Event must be at least 2 days from now.")]
-        public DateTime CreatedDate { get; set; }
+        public DateTime EventDate { get; set; }
 
         public bool IsActive { get; set; }=true;
 
         public string Poster { get; set; }
+
+        public string Maplink { get; set; }
+
 
         [Range(1, int.MaxValue, ErrorMessage = "Number of tickets must be greater than zero.")]
         public int NumberOfTickets { get; set; }

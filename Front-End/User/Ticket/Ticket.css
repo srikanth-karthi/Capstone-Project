@@ -117,6 +117,7 @@ body {
     }
   
     .navbar .nav-links.active {
+      z-index: 9999;
       display: flex;
     }
   
@@ -227,11 +228,28 @@ body {
   }
   
   .check {
+ 
     background: #fff;
     height: 250px;
     width: 450px;
     padding: 40px;
     position: relative;
+  }
+  .blurred {
+    filter: blur(1px);
+  }
+
+  .confirmticket
+  {
+    padding: 5px;
+    outline: none;
+    border: none;
+    background-color: rgba(0, 255, 255, 0.612);
+    border-radius: 10%;
+    position: absolute;
+    top: 0;
+   margin-left: 330px;
+margin-top: 30px;
   }
   
   .check:before {

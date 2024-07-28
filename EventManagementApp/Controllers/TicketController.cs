@@ -1,4 +1,5 @@
 ﻿using EventManagementApp.DTOs.Event;
+using EventManagementApp.Exceptions;
 using EventManagementApp.Interfaces.Service;
 using EventManagementApp.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -41,6 +42,11 @@ namespace EventManagementApp.Controllers
                 int UserId = int.Parse(User.FindFirst("userId").Value.ToString());
                 var response = await _ticketService.BookTicket(ticketDto, UserId);
                 return Ok(response);
+            }
+            catch (NotEnoughTicketsException ex)
+            {
+
+                return StatusCode(412, new { mag = "Not enough tickets available", AvaliableTickets = ex.Message });
             }
             catch (Exception ex)
             {
@@ -97,6 +103,39 @@ namespace EventManagementApp.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+
+        [HttpPost("TicketRepayment/{ticketid}")]
+        public async Task<IActionResult> TicketRepayment(string ticketid)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+                var customErrorResponse = new
+                {
+                    Title = "One or more validation errors occurred.",
+                    Errors = errors
+                };
+
+                return BadRequest(customErrorResponse);
+            }
+
+            try
+            {
+                var ticket = await _ticketService.RepaymentTicket(ticketid);
+
+                return Ok(ticket);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
         [AllowAnonymous]
         [HttpGet("checkin/{TicketId}")]
         public async Task<IActionResult> CheckInTicket(string TicketId)
@@ -107,7 +146,7 @@ namespace EventManagementApp.Controllers
             {
                 var ticket = await _ticketService.CheckInTicket(TicketId, 1);
 
-                return Ok(new { message = $"One ticket checkin,{ticket.CheckedInTickets} avaliable " });
+                return Ok(new { message = $"One ticket checkin,{ticket.NumberOfTickets- ticket.CheckedInTickets} avaliable " });
             }
             catch (InvalidOperationException ex)
             {

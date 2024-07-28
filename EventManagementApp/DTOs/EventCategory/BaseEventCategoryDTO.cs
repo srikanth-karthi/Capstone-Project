@@ -8,6 +8,8 @@ namespace EventManagementApp.DTOs.EventCategory
         public string EventName { get; set; }
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; }
+        public bool IsService { get; set; }
+        public string Poster { get; set; }
         public float? Rating { get; set; }
         public List<UserReviewDTO> Reviews { get; set; }
     }

@@ -1,4 +1,6 @@
-﻿namespace EventManagementApp.DTOs.Event
+﻿using EventManagementApp.Enums;
+
+namespace EventManagementApp.DTOs.Event
 {
     public class TicketDTO
     {
@@ -8,6 +10,8 @@
         public int? CheckedInTickets { get; set; }
         public int NumberOfTickets { get; set; }
         public decimal? TicketCost { get; set; }
+
+        public PaymentStatus? PaymentStatus { get; set; }
         public int? UserId { get; set; }
         public int EventId { get; set; }
 

@@ -39,9 +39,16 @@ namespace EventManagementApp.Controllers
                     await _scheduledEventService.MarkEventAsCompleted(eventId);
                 }
 
-                return Ok("Schedule is marked as Completed");
+                var response = new
+                {
+                    Status = "Success",
+                    Message = "Schedule is marked as Completed"
+                };
+
+                return Ok(response);
+
             }
-            catch(NoScheduledEventFoundException ex)
+            catch (NoScheduledEventFoundException ex)
             {
                 return NotFound(ex.Message);
             }

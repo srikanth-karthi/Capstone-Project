@@ -23,7 +23,9 @@ namespace EventManagementApp.Repositories
                     EventCategoryId = ec.EventCategoryId,
                     EventName = ec.EventName,
                     Description = ec.Description,
+                    IsService=ec.IsService,
                     CreatedDate = ec.CreatedDate,
+                    Poster=ec.Poster,
                     Rating = ec.Rating,
                     Reviews = new List<UserReviewDTO>()
                 })
@@ -55,6 +57,8 @@ namespace EventManagementApp.Repositories
                     EventName = ec.EventName,
                     Description = ec.Description,
                     CreatedDate = ec.CreatedDate,
+                    Poster = ec.Poster,
+                    IsService= ec.IsService,
                     Rating = ec.Rating,
                     IsActive = ec.IsActive,
                     Reviews = new List<UserReviewDTO>()

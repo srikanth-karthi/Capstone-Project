@@ -35,6 +35,7 @@ namespace EventManagementApp.Services
                 {
                     EventCategoryId = ec.EventCategoryId,
                     EventName = ec.EventName,
+                    Poster=ec.Poster,
                     Description = ec.Description,
                     CreatedDate = ec.CreatedDate,
                     IsActive = ec.IsActive
@@ -51,6 +52,8 @@ namespace EventManagementApp.Services
             EventCategory category = new EventCategory();
             category.EventName = eventCategoryDTO.EventName;
             category.Description = eventCategoryDTO.Description;
+            category.Poster=eventCategoryDTO.Poster;
+            category.IsService=eventCategoryDTO.IsService;
             category.IsActive = true;
             await _eventCategoryRepository.Add(category);
         }
@@ -72,6 +75,7 @@ namespace EventManagementApp.Services
             if (updateEventCategoryDTO.EventName == null 
                 && updateEventCategoryDTO.Description == null
                 && updateEventCategoryDTO.IsActive == null
+                && updateEventCategoryDTO.Poster== null
                 )
             {
                 throw new NullReferenceException();
@@ -87,6 +91,10 @@ namespace EventManagementApp.Services
                 eventCategory.Description = updateEventCategoryDTO.Description;
             }
 
+            if (updateEventCategoryDTO.Poster != null)
+            {
+                eventCategory.Poster = updateEventCategoryDTO.Poster;
+            }
             if (updateEventCategoryDTO.IsActive != null)
             {
                 eventCategory.IsActive = (bool)updateEventCategoryDTO.IsActive;

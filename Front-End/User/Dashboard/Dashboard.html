@@ -17,17 +17,15 @@
   <body>
     <nav class="navbar">
       <div class="logo">
-   
         <img src="../../asserts/logo.svg" alt="" />Eventify
       </div>
       <ul class="nav-links">
         <li><a href="#">Home</a></li>
-        <li><a href="Front-End/User/Quotation/Quotation.html">Quotation</a></li>
-        <li><a href="#">Orders</a></li>
-        <li><a href="#">Sheduled-Orders</a></li>
+        <li><a href="../Quotations/Quotations.html">Quotation</a></li>
+        <li><a href="../Event/Event.html">Sheduled-Orders</a></li>
       </ul>
       <div class="headericons">
-        <a href="#" rel="noopener noreferrer"
+        <a href="../Ticket/Ticket.html" rel="noopener noreferrer"
           ><img src="../../asserts/Ticket.svg" alt=""
         /></a>
         <img src="../../asserts/Profileicon.svg" alt="" />
@@ -146,28 +144,17 @@
         <div class="event-ticket">
           <h2>Ticket Information</h2>
           <p id="ticketCost">Ticket Cost</p>
-          <div class="ticket-quantity">
-            <p>Quantity</p>
-            <button id="decrease">-</button>
-            <span id="quantity">1</span>
-            <button id="increase">+</button>
+          <div class="ticket-container">
+            
           </div>
-          <button class="buy-tickets" onclick="openModal()">
-            <img
-              src="../../asserts/ticket-btn.svg"
-              width="20"
-              alt="ticket-icon"
-            />
-            <div id="book-tickets">Book Tickets</div>
-          </button>
         </div>
-        <div class="event-host">
-          <h2>Event Description</h2>
+        <div  class="event-host">
+          <h2 style="margin-bottom: 30px;">Event Description</h2>
           <p id="eventHost">Host</p>
         </div>
         <div class="event-location">
           <h2>Location</h2>
-          <p id="eventLocation">Location</p>
+       
           <iframe
             id="eventMap"
             width="600"
@@ -181,14 +168,18 @@
     </div>
     <div class="event-category-container" style="display: none">
       <div class="event-category-banner-container">
-        <button id="event-category-back-button" class="event-category-back-button">←</button>
+        <button
+          id="event-category-back-button"
+          class="event-category-back-button"
+        >
+          ←
+        </button>
         <div class="event-details" id="eventDetails">
           <img src="" alt="Event Image" class="event-category-banner" />
         </div>
       </div>
       <h1 id="event-category-eventTitle">Event Title</h1>
       <div class="event-info">
-       
         <div class="event-category-description">
           <h2>Service Description</h2>
           <p id="event-category-Description">Host</p>
@@ -198,7 +189,7 @@
         </button>
       </div>
     </div>
-    
+
     <div class="modal" id="formModal">
       <div class="modal-content" id="formContent">
         <div class="modal-header">
@@ -207,16 +198,21 @@
         </div>
         <form id="form" onsubmit="return validateForm(event)">
           <div class="form-group">
-            <label for="vunuetype">Vunuetype</label>
+            <label for="vunuetype">Venue Type</label>
             <select id="vunuetype" name="vunuetype" required>
               <option value="">Select</option>
               <option value="OwnVenue">OwnVenue</option>
               <option value="PrivateVenue">Private-Venue</option>
             </select>
           </div>
-          <div class="form-group">
+          <div class="form-group food">
             <label for="food">Food</label>
-            <select id="food" name="food" required onchange="toggleCateringDescription()">
+            <select
+              id="food"
+              name="food"
+              required
+              onchange="toggleCateringDescription()"
+            >
               <option value="">Select</option>
               <option value="NoFood">NoFood</option>
               <option value="Veg">Veg</option>
@@ -226,27 +222,54 @@
           </div>
           <div class="form-group catering-description">
             <label for="catering_description">Catering Instructions</label>
-            <input type="text" id="catering_description" name="catering_description" placeholder="Testavre">
+            <input
+              type="text"
+              id="catering_description"
+              name="catering_description"
+              placeholder="Catering description"
+            />
           </div>
-          <div class="form-group">
+          <div class="form-group special_description">
             <label for="special_description">Special Instructions</label>
-            <input type="text" id="special_description" name="special_description" placeholder="Testavre" required>
+            <input
+              type="text"
+              id="special_description"
+              name="special_description"
+              placeholder="Special description"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="locationDetails">Location Details</label>
-            <input type="text" id="locationDetails" name="locationDetails" placeholder="Testavre" required>
+            <input
+              type="text"
+              id="locationDetails"
+              name="locationDetails"
+              placeholder="location Details"
+              required
+            />
+            <button onclick=""> </button>
           </div>
           <div class="form-group">
             <label for="start_date">Start Date & Time</label>
-            <input type="datetime-local" id="start_date" name="start_date" required>
+            <input
+              type="datetime-local"
+              id="start_date"
+              name="start_date"
+              required
+            />
           </div>
           <div class="form-group">
             <label for="end_date">End Date & Time</label>
-            <input type="datetime-local" id="end_date" name="end_date" required>
+            <input
+              type="datetime-local"
+              id="end_date"
+              name="end_date"
+              required
+            />
           </div>
           <div class="buttons">
             <button type="submit" class="button submit">Submit</button>
-            
           </div>
         </form>
       </div>

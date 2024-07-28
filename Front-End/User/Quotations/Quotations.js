@@ -5,7 +5,7 @@ import { toggleDisplay } from "../../Package/Domtools.js";
 if (!localStorage.getItem('authToken')) {
     window.location.href = "/";
 }
-toggleDisplay("class", "event-container", "none");
+
 
 const hamburgerMenu = document.querySelector(".hamburger-menu");
 const navLinks = document.querySelector(".nav-links");
@@ -56,24 +56,25 @@ function createQuotationElement(quotation) {
     const statusClass = getStatusClass(quotation.quotationStatus);
 
     div.innerHTML = `
-        <div>
-            <h2>${quotation.eventCategory} <div class="status ${statusClass}">${quotation.quotationStatus}</div></h2>
-            <div class="quotation-item">
-                <div>
-                    <p><strong>Start Date:</strong> ${formatDate(quotation.eventStartDate)}</p>
-                    <p><strong>End Date:</strong> ${formatDate(quotation.eventEndDate)}</p>
-                    <p><strong>Special Instructions:</strong> ${quotation.specialInstructions}</p>
-                    ${quotation.foodPreference !== "NoFood" ? `<p><strong>Catering Instructions:</strong> ${quotation.cateringInstructions}</p>` : ""}
-                </div>
-                <div style="margin-left: auto; margin-right:auto;">
-                    <p><strong>Food Preference:</strong> ${quotation.foodPreference}</p>
-                    <p><strong>Venue Type:</strong> ${quotation.venueType}</p>
-                    <p><strong>Location Details:</strong> ${quotation.locationDetails}</p>
-                </div>
+    <div>
+        <h2>${quotation.eventCategory} <div class="status ${statusClass}">${quotation.quotationStatus}</div></h2>
+        <div class="quotation-item">
+            <div>
+                <p><strong>Start Date:</strong> ${formatDate(quotation.eventStartDate)}</p>
+                <p><strong>End Date:</strong> ${formatDate(quotation.eventEndDate)}</p>
+                <p><strong>Special Instructions:</strong> ${quotation.specialInstructions}</p>
+                ${quotation.foodPreference && quotation.foodPreference !== "NoFood" ? `<p><strong>Catering Instructions:</strong> ${quotation.cateringInstructions ? quotation.cateringInstructions : "Not provided"}</p>` : ""}
+            </div>
+            <div style="margin-left: auto; margin-right:auto;">
+                ${quotation.foodPreference ? `<p><strong>Food Preference:</strong> ${quotation.foodPreference}</p>` : ""}
+                <p><strong>Venue Type:</strong> ${quotation.venueType}</p>
+                <p><strong>Location Details:</strong> ${quotation.locationDetails}</p>
             </div>
         </div>
-        <div id="response-details-${quotation.quotationRequestId}" class="response-details"></div>
-    `;
+    </div>
+    <div id="response-details-${quotation.quotationRequestId}" class="response-details"></div>
+`;
+
 
     const handleClick = () => {
         showResponseDetails(quotation.quotationRequestId);

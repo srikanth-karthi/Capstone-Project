@@ -27,9 +27,10 @@ namespace EventManagementApp.Services
                 EventId = e.EventId,
                 EventName = e.EventName,
                 Description = e.Description,
-                CreatedDate = e.CreatedDate,
+                EventDate = e.EventDate,
                 IsActive = e.IsActive,
                 Poster = e.Poster,
+                Maplink= e.Maplink,
                 NumberOfTickets = e.NumberOfTickets,
                 RemainingTickets = e.RemainingTickets,
                 TicketCost = e.TicketCost
@@ -44,7 +45,8 @@ namespace EventManagementApp.Services
                              EventId = e.EventId,
                              EventName = e.EventName,
                              Description = e.Description,
-                             CreatedDate = e.CreatedDate,
+                             Maplink=e.Maplink,
+                             EventDate = e.EventDate,
                              IsActive = e.IsActive,
                              Poster = e.Poster,
                              NumberOfTickets = e.NumberOfTickets,
@@ -68,6 +70,7 @@ namespace EventManagementApp.Services
 
             eventToUpdate.EventName = eventDto.EventName;
             eventToUpdate.Description = eventDto.Description;
+            eventToUpdate.Maplink = eventDto.Maplink;
             eventToUpdate.IsActive = eventDto.IsActive;
             eventToUpdate.Poster = eventDto.Poster;
             eventToUpdate.NumberOfTickets = eventDto.NumberOfTickets;
@@ -80,7 +83,7 @@ namespace EventManagementApp.Services
 
         public async Task<Event> AddEvent(EventDTO eventDto)
         {
-            if (IsWeekday(eventDto.CreatedDate) && eventDto.TicketCost > 50)
+            if (IsWeekday(eventDto.EventDate) && eventDto.TicketCost > 50)
             {
                 throw new InvalidTicketpriceException("For events hosted during non-peak times, charges cannot exceed $50 per ticket.");
             }
@@ -89,7 +92,8 @@ namespace EventManagementApp.Services
             {
                 EventName = eventDto.EventName,
                 Description = eventDto.Description,
-                CreatedDate = eventDto.CreatedDate,
+                EventDate = eventDto.EventDate,
+                Maplink=eventDto.Maplink,
                 IsActive = eventDto.IsActive,
                 Poster = eventDto.Poster,
                 NumberOfTickets = eventDto.NumberOfTickets,

@@ -11,20 +11,24 @@ namespace EventManagementApp.Models
         [StringLength(100)]
         public string EventName { get; set; }
 
-        [StringLength(500)]
+
         public string Description { get; set; }
 
-        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public DateTime EventDate { get; set; }
 
         public bool IsActive { get; set; }
 
         public string Poster { get; set; }
+
+        public string Maplink { get; set; }
+
 
         public int NumberOfTickets { get; set; }
 
         public int RemainingTickets { get; set; }
 
         public decimal TicketCost { get; set; }
+
 
         public virtual ICollection<Tickets> Tickets { get; set; }
     }

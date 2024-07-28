@@ -570,6 +570,8 @@ width: 100%;
 .event-category-description{
  width: 100%;
 }
+.event-category-description h2{
+ margin-bottom: 30px;}
 .event-ticket {
   margin-left: auto;
 

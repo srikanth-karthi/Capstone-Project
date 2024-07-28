@@ -9,6 +9,9 @@ namespace EventManagementApp.Models
         public string EventName { get; set; }
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        public bool IsService { get; set; }
+        public string Poster { get; set; }
         public bool IsActive { get; set; }
         public float? Rating { get; set; } = null;
         public int NumberOfRatings { get; set; }

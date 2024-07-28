@@ -22,7 +22,7 @@ namespace EventManagementApp.Repositories
       
                     EventCategory = e.EventCategory.EventName,
                     CateringInstructions = e.QuotationRequest.CateringInstructions,
-                    FoodPreference = e.QuotationRequest.FoodPreference,
+                    FoodPreference = (Enums.FoodPreference)e.QuotationRequest.FoodPreference,
                     LocationDetails = e.QuotationRequest.LocationDetails,
                     RequestDate = e.QuotationRequest.RequestDate,
                     SpecialInstructions = e.QuotationRequest.SpecialInstructions,
