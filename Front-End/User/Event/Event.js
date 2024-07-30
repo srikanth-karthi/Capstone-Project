@@ -60,7 +60,6 @@ const events = data.map(event => {
 }
 Rendercalander()
   function showModal(event) {
-    console.log(event);
   
     const modal = document.getElementById('eventModal');
     document.getElementById('modalTitle').innerText = event.eventCategory;

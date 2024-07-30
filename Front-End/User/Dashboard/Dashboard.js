@@ -184,10 +184,7 @@ async function handlePayment() {
           });
 
           events.forEach((event) => {
-            console.log(
-              document.getElementById("eventTitle").getAttribute("EventId"),
-              event.eventId
-            );
+     
             if (
               event.eventId ==
               document.getElementById("eventTitle").getAttribute("EventId")
@@ -315,7 +312,8 @@ function decreaseQuantity() {
 }
 function openeventCategoryModal() {
   document.querySelector(".modal-title").innerText = `${document.getElementById("event-category-eventTitle").innerText} Quotation`;
-
+  const cateringDescription = document.querySelector(".catering-description");
+  cateringDescription.style.display = "none";
   const foodFormGroup = document.querySelector(".food");
 
   services.forEach((service) => {
@@ -419,7 +417,6 @@ async function validateForm(event) {
     showToast("success", "Success", "Request Created successfully");
     closeModal();
   } catch (e) {
-    console.log(e);
   }
 
   return true;

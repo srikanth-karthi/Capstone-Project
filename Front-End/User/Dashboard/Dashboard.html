@@ -20,7 +20,7 @@
         <img src="../../asserts/logo.svg" alt="" />Eventify
       </div>
       <ul class="nav-links">
-        <li><a href="#">Home</a></li>
+        <li><a href="#"style="color: rgba(255, 224, 71, 1);">Home</a></li>
         <li><a href="../Quotations/Quotations.html">Quotation</a></li>
         <li><a href="../Event/Event.html">Sheduled-Orders</a></li>
       </ul>
@@ -197,17 +197,18 @@
           <button class="close-button" onclick="closeModal()">×</button>
         </div>
         <form id="form" onsubmit="return validateForm(event)">
-          <div class="form-group">
-            <label for="vunuetype">Venue Type</label>
+          <div style="display: flex; gap: 40px;" class="form-group">
+            <label for="vunuetype">Venue</label>
             <select id="vunuetype" name="vunuetype" required>
               <option value="">Select</option>
               <option value="OwnVenue">OwnVenue</option>
               <option value="PrivateVenue">Private-Venue</option>
             </select>
           </div>
-          <div class="form-group food">
+          <div style="display: flex;gap: 50px;" class="form-group food">
             <label for="food">Food</label>
             <select
+        
               id="food"
               name="food"
               required
@@ -248,7 +249,6 @@
               placeholder="location Details"
               required
             />
-            <button onclick=""> </button>
           </div>
           <div class="form-group">
             <label for="start_date">Start Date & Time</label>

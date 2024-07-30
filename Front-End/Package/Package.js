@@ -1,6 +1,6 @@
 export let activeToasts = [];
 
-export function showToast(type, message1, message2, duration = 2000) {
+export function showToast(type, message1, message2, duration = 10000) {
  const toastContainer = document.createElement('div');
  toastContainer.classList.add('toast', type);
 

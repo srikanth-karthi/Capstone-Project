@@ -148,7 +148,7 @@ body {
   }
   
   .ticket .stub,
-  .ticket .check {
+  .ticket .ticketcheck {
     box-sizing: border-box;
   }
   
@@ -227,7 +227,7 @@ body {
     margin-bottom: 5px;
   }
   
-  .check {
+  .ticketcheck {
  
     background: #fff;
     height: 250px;
@@ -252,7 +252,7 @@ body {
 margin-top: 30px;
   }
   
-  .check:before {
+  .ticketcheck:before {
     content: '';
     position: absolute;
     top: 0;
@@ -262,7 +262,7 @@ margin-top: 30px;
     width: 0;
   }
   
-  .check:after {
+  .ticketcheck:after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -272,13 +272,13 @@ margin-top: 30px;
     width: 0;
   }
   
-  .check .big {
+  .ticketcheck .big {
     font-size: 80px;
     font-weight: 900;
     line-height: .9em;
   }
   
-  .check .number {
+  .ticketcheck .number {
     position: absolute;
     top: 50px;
     right: 50px;
@@ -291,7 +291,7 @@ margin-top: 30px;
     width: 60px;
 
   }
-  .check .info {
+  .ticketcheck .info {
     display: flex;
     justify-content: flex-start;
     font-size: 12px;
@@ -299,11 +299,11 @@ margin-top: 30px;
     width: 100%;
   }
   
-  .check .info section {
+  .ticketcheck .info section {
     margin-right: 50px;
   }
   
-  .check .info section:before {
+  .ticketcheck .info section:before {
     content: '';
     background: #ef5658;
     display: block;
@@ -312,7 +312,7 @@ margin-top: 30px;
     margin-bottom: 5px;
   }
   
-  .check .info .title {
+  .ticketcheck .info .title {
     font-size: 10px;
     text-transform: uppercase;
   }

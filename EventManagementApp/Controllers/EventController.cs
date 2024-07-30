@@ -68,7 +68,7 @@ namespace EventManagementApp.Controllers
         }
         [Authorize(Roles = "Admin")]
         [HttpPut("{eventId}")]
-        public async Task<IActionResult> UpdateEvent(int eventId, [FromBody] EventDTO eventDto)
+        public async Task<IActionResult> UpdateEvent(int eventId, [FromForm] UpdateEventDto eventDto)
         {
      
 
@@ -82,10 +82,10 @@ namespace EventManagementApp.Controllers
                         Title = "One or more validation errors occurred.",
                         Errors = errors
                     };
-
+                   
                     return BadRequest(customErrorResponse);
                 }
-                var updatedEvent = await _eventService.UpdateEvent(eventDto);
+                var updatedEvent = await _eventService.UpdateEvent(eventDto, eventId);
                 return Ok(updatedEvent);
             }
             catch (EventNotFoundExceptions ex)
@@ -103,7 +103,7 @@ namespace EventManagementApp.Controllers
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<IActionResult> AddEvent([FromBody] EventDTO eventDto)
+        public async Task<IActionResult> AddEvent([FromForm] AddEventDto eventDto)
         {
             try
             {

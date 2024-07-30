@@ -6,7 +6,7 @@ namespace EventManagementApp.DTOs
 {
     public class EventDTO
     {
-        public int? EventId { get; set; }
+        public int EventId { get; set; }
 
         [Required]
         [StringLength(100)]
@@ -20,7 +20,7 @@ namespace EventManagementApp.DTOs
         [EventDateValidation(ErrorMessage = "Event must be at least 2 days from now.")]
         public DateTime EventDate { get; set; }
 
-        public bool IsActive { get; set; }=true;
+        public bool IsActive { get; set; }
 
         public string Poster { get; set; }
 
@@ -32,7 +32,7 @@ namespace EventManagementApp.DTOs
 
         [Range(0, double.MaxValue, ErrorMessage = "Ticket cost must be a positive value.")]
         public decimal TicketCost { get; set; }
-        public int? RemainingTickets { get; set; }
+        public int RemainingTickets { get; set; }
 
     }
 }

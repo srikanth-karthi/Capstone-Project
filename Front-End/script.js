@@ -1,6 +1,6 @@
 
 function handleCredentialResponse(response) {
-    console.log('Google User:', response);
+
     api(response);
 }
 
@@ -20,13 +20,13 @@ async function api(response) {
         localStorage.setItem("userId", result.payload.userId);
         if(result.payload.userId==1) 
             {
-                window.location.href="../Admin/Admin.html?authid=1" 
+                window.location.href="/Admin/Dashboard/Dashboard.html?authid=1" 
             }
             else 
             {
                 window.location.href = "/User/Dashboard/Dashboard.html?authid=1";
             }
     } catch (e) {
-        console.log(e);
+      
     }
 }

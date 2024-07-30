@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Eventify</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link   href="https://fonts.googleapis.com/css2?family=Lalezar&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link rel="stylesheet" href="../../Package/toster.css" />
+    <link rel="stylesheet" href="Quotations.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+     
+          <img src="../../asserts/logo.svg" alt="" />Eventify
+        </div>
+        <ul class="nav-links">
+          <li><a href="../Dashboard/Dashboard.html">Home</a></li>
+          <li><a href="#" style="color: rgba(255, 224, 71, 1);">Quotation</a></li>
+          <li><a href="../Event/Event.html">Scheduled-Events</a></li>
+        </ul>
+   
+        <div class="hamburger-menu">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </nav>
+
+      <div class="container">
+ <div class="container-header">
+  <h1>Quotations</h1>
+  <button id="New Quotations" class="New-Quotations"onclick="newQuotation()">New Quotations</button>
+ </div>
+             <div id="quotations"></div>
+             <div id="pagination"></div>
+             
+
+      </div>
+      <div id="AddResponseModal" class="modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="modal-title">Quotation Response</div>
+            <button class="close-button" onclick="closeResponseModal()">×</button>
+          </div>
+          <form  id="AddResponseform" onsubmit="return AddResponse(event)">
+            <div  class="form-group">
+              <label for="food">Status</label>
+              <select
+          style="margin-bottom: 20px;"
+                id="response-status"
+                name="status"
+                required
+                onchange="toggleresponsestatus()"
+              >
+                <option value="Accepted">Accepted</option>
+                <option value="Denied">Denied</option>
+          
+              </select>
+              <div class="toogle">
+            <div class="form-group">
+              <label for="quotedAmount">Amount (₹)</label>
+              <input type="number" id="quotedAmount" />
+            </div>
+        
+          </div>
+          <div class="form-group">
+            <label for="responseMessage">Response Message</label>
+            <textarea id="responseMessage" required></textarea>
+          </div>
+            <div class="buttons">
+              <button type="submit" class="button submit">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <script  type="module" src="Quotations.js"  ></script>
+</body>
+</html>

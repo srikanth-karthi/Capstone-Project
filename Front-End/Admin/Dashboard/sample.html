@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert Text to JSON</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .output-container {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="input-text" rows="20" cols="50">
+Description: Celebrate your special day with a spectacular birthday party organized by our expert team! We offer customized themes, decorations, entertainment, catering, and more to make your birthday unforgettable. From intimate gatherings to grand celebrations, we ensure every detail is taken care of, allowing you to enjoy a stress-free and memorable event. Let us create a magical experience tailored to your unique preferences and style. 🎉🎂🎈
+
+Event Highlights:
+Customized Themes: Whether you dream of a fairy-tale wonderland or a modern chic celebration, we design themes that bring your vision to life. 🌟
+Decorations: Our team transforms your venue with stunning decorations, including balloons, streamers, and centerpieces that match your theme perfectly. 🎀🎈
+Entertainment: From live bands and DJs to magicians and clowns, we provide entertainment options that keep your guests engaged and entertained. 🎶🤹
+Catering: Enjoy a delicious spread of food and drinks tailored to your taste. Our catering services include a variety of cuisines and special dietary options. 🍽�🍰
+Professional Planning: We handle every detail from invitations to thank-you notes, ensuring a seamless and stress-free experience. 📝✅
+
+Why Choose Us:
+Expert Team: Our experienced planners are dedicated to creating unforgettable events.
+Attention to Detail: We focus on every little detail to ensure your party is perfect.
+Personalized Service: We work closely with you to understand your preferences and style, delivering a personalized celebration.
+Stress-Free Experience: Relax and enjoy your special day while we take care of everything.
+
+Quote: "The more you praise and celebrate your life, the more there is in life to celebrate." - Oprah Winfrey
+    </textarea>
+    <button onclick="convertTextToJSON()">Convert</button>
+    <div id="event-container"></div>
+
+    <script>
+        function convertTextToJSON() {
+            const inputText = document.getElementById('input-text').value;
+
+            const formattedText = inputText
+                .replace(/\n/g, '\\n')
+                .replace(/"/g, '\\"');
+
+            const jsonObject = {
+                eventName: "Birthday Party",
+                Description: formattedText
+            };
+
+            renderEvent(jsonObject);
+        }
+
+        function renderEvent(jsonObject) {
+            const container = document.getElementById('event-container');
+            const eventDescription = jsonObject.Description.replace(/\\n/g, '<br>');
+
+            container.innerHTML = `
+                <h1>${jsonObject.eventName}</h1>
+                <p>${eventDescription}</p>
+            `;
+        }
+    </script>
+</body>
+</html>

@@ -70,6 +70,8 @@ namespace EventManagementApp.Repositories
             return userQuotationRequestDTO;
         }
 
+
+
         public async Task<List<BasicQuotationRequestDTO>> GetUserRequests(int userId)
         {
             List<BasicQuotationRequestDTO> quotationRequest = await _context

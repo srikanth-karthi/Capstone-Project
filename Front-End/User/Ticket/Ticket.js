@@ -45,7 +45,7 @@ function rendertickets(tickets) {
           <div class="number">${ticketData.numberOfTickets}</div>
           <div class="invite">Invite for you</div>
         </div>
-        <div class="check">
+        <div class="ticketcheck">
           ${
             ticketData.paymentStatus === "Pending"
               ? `<button type="button" class="confirmticket" data-ticketid="${ticketData.ticketId}" data-quantity="${ticketData.numberOfTickets}">Pay now</button>`
@@ -66,7 +66,6 @@ function rendertickets(tickets) {
       `;
   
       ticketsContainer.appendChild(ticketElement);
-  console.log(ticketData.ticketId);
       new QRCode(document.getElementById(`qrcode-${ticketData.ticketId}`), {
         text: `localhost:5232/api/ticket/checkin/${ticketData.ticketId}`,
         width: 128,

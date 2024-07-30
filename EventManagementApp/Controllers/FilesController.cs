@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -19,27 +20,20 @@ public class FilesController : ControllerBase
     [HttpPost("upload")]
     public async Task<IActionResult> Upload(IFormFile file)
     {
-        if (file.Length > 0)
+        if (file == null || file.Length == 0)
         {
-            var filePath = Path.GetTempFileName();
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-
-            await _blobService.UploadFileAsync(filePath, file.FileName);
-
-            System.IO.File.Delete(filePath);
-            return Ok(new { FileName = file.FileName });
+            return BadRequest("No file uploaded.");
         }
 
-        return BadRequest("No file uploaded.");
-    }
-
-    [HttpGet("download/{blobName}")]
-    public async Task<IActionResult> Download(string blobName)
-    {
-        var stream = await _blobService.DownloadFileAsync(blobName);
-        return File(stream, "application/octet-stream", blobName);
+        try
+        {
+            var result = await _blobService.UploadFileAsync(file, file.FileName);
+            return Ok(new { Uri = result });
+        }
+        catch (Exception ex)
+        {
+            // Log the exception here (ex)
+            return StatusCode(StatusCodes.Status500InternalServerError, "Error uploading file.");
+        }
     }
 }

@@ -57,7 +57,7 @@ function createQuotationElement(quotation) {
 
     div.innerHTML = `
     <div>
-        <h2>${quotation.eventCategory} <div class="status ${statusClass}">${quotation.quotationStatus}</div></h2>
+        <h2>${quotation.eventCategory} <div class="status ${statusClass}">🏷️ ${quotation.quotationStatus}</div></h2>
         <div class="quotation-item">
             <div>
                 <p><strong>Start Date:</strong> ${formatDate(quotation.eventStartDate)}</p>
@@ -103,9 +103,9 @@ async function showResponseDetails(requestId) {
                     </div>
                 </div>
                 ${response.clientResponse ? `
-                    <h2>Client Response <div class="status ${getStatusClass(response.clientResponse.clientDecision)}">${response.clientResponse.clientDecision}</div></h2>
+                    <h2>Your Response<div class="status ${getStatusClass(response.clientResponse.clientDecision)}">${response.clientResponse.clientDecision}</div></h2>
                     ${response.clientResponse.clientDecision === "Accepted" ? `
-${response.clientResponse.isPaid ? `<div class="paid"><img src="../../asserts/paid.png" alt="Paid" width="20">Paid</div>` : `<button type='button'class="paid" onclick='paynow(${response.clientResponse.quotedAmount}, ${response.clientResponse.orderId})'>Pay Now</button>`}
+${response.clientResponse.isPaid ? `<div class="paid"><img src="../../asserts/paid.png" alt="Paid" width="20">Paid</div>` : `<button type='button'class="paid" onclick='paynow(${requestId}, ${response.clientResponse.orderId})'>Pay Now</button>`}
 
                     ` : ""}
                 ` : `

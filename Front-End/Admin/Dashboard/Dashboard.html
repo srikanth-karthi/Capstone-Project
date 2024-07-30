@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eventify</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lalezar&family=Montserrat:wght@100..900&family=Open+Sans:wght@300..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="Dashboard.css" />
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <link rel="stylesheet" href="../../Package/toster.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="../../asserts/logo.svg" alt="Eventify Logo" />
+        Eventify
+      </div>
+      <ul class="nav-links">
+        <li><a href="#" style="color: rgba(255, 224, 71, 1);">Home</a></li>
+        <li><a href="../Quotations/Quotations.html">Quotation</a></li>
+        <li><a href="../Event/Event.html">Scheduled Orders</a></li>
+      </ul>
+ 
+      <div class="hamburger-menu">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </nav>
+    <div class="main-content">
+      <section class="events">
+        <h2>
+          Manage Events
+          <img
+            src="../../asserts/add.svg"
+            alt="Add Event"
+            onclick="openAddEventModal()"
+          />
+        </h2>
+        <div class="event-list"></div>
+      </section>
+
+      <section class="services">
+        <h2>Manage Services
+          <img
+          src="../../asserts/add.svg"
+          alt="Add Event"
+          onclick="openAddServiceModal()"
+        />
+        </h2>
+        <div class="service-list"></div>
+        <button id="seeMoreBtn">See More</button>
+      </section>
+
+      <div class="container">
+        <div class="inner-container">
+          <div class="section">
+            <div class="company-info">
+              <div class="section-title">Eventify</div>
+              <div class="item">About Us</div>
+              <div class="item">Contact Us</div>
+              <div class="item">Careers</div>
+              <div class="item">FAQs</div>
+              <div class="item">Terms of Service</div>
+              <div class="item">Privacy Policy</div>
+            </div>
+            <div class="help">
+              <div class="section-title">Help</div>
+              <div class="item">Account Support</div>
+              <div class="item">Listing Events</div>
+              <div class="item">Event Ticketing</div>
+            </div>
+            <div class="follow-us">
+              <div class="section-title">Follow Us</div>
+              <div class="item">Facebook</div>
+              <div class="item">Instagram</div>
+              <div class="item">Twitter</div>
+              <div class="item">YouTube</div>
+            </div>
+            <div class="download-app">
+              <div class="download-title">Download The App</div>
+              <div class="download-app-container">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/3a563cdba32612ce0dfc77ca21d0f2bedf405e6d9e91c7f28526033bf5714455"
+                  class="download-icon"
+                  alt="Google Play"
+                />
+                <div class="download-text">
+                  <div class="download-subtext">Get it on</div>
+                  <div class="download-maintext">Google Play</div>
+                </div>
+              </div>
+              <div class="download-app-container-alt">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/850331c1684a50981e2f1489bfd65e3d6924ea784f3e213f05f9317274fe2749"
+                  class="download-icon download-icon-alt"
+                  alt="App Store"
+                />
+                <div class="download-text">
+                  <div class="download-subtext">Download on the</div>
+                  <div class="download-maintext">App Store</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="footer">
+            <div class="footer-text">2024 Eventify. All rights reserved.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="event-container" style="display: none">
+      <div class="banner-container">
+        <button id="backButton" class="back-button">←</button>
+        <div class="event-details" id="eventDetails">
+          <img src="" alt="Event Image" class="event-banner" />
+        </div>
+      </div>
+      <h1 id="eventTitle"></h1>
+      <div class="event-info">
+        <div class="event-date-time">
+          <p><strong>Date and Time</strong></p>
+          <p id="eventDate">Date</p>
+          <p id="eventTime">Time</p>
+        </div>
+        <div class="event-ticket">
+          <h2>Ticket Information</h2>
+          <p id="ticketCost"></p>
+          <p id="numberOfTickets"></p>
+          <p id="remainingTickets"></p>
+          <p id="Booked"></p>
+          <div class="ticket-container"></div>
+        </div>
+        <div class="event-host">
+          <h2 style="margin-bottom: 30px">Event Description</h2>
+          <p id="eventHost">Host</p>
+        </div>
+        <div class="event-location">
+          <h2>Location</h2>
+          <iframe
+            id="eventMap"
+            width="600"
+            height="450"
+            style="border: 0"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+    <div class="event-category-container" style="display: none">
+      <div class="event-category-banner-container">
+        <button
+          id="event-category-back-button"
+          class="event-category-back-button"
+        >
+          ←
+        </button>
+        <div class="event-details" id="eventDetails">
+          <img src="" alt="Event Image" class="event-category-banner" />
+        </div>
+      </div>
+      <h1 id="event-category-eventTitle">Event Title</h1>
+      <div class="event-info">
+        <div class="event-category-description">
+          <h2>Service Description</h2>
+          <p id="event-category-Description">Host</p>
+        </div>
+      </div>
+    </div>
+    <div id="editEventModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title">
+            Edit Event
+            <input
+              id="toggle"
+              class="toggle"
+              type="checkbox"
+              role="switch"
+              name="toggle"
+            />
+          </div>
+          <button class="close-button" onclick="closeModalEvent()">×</button>
+        </div>
+        <form id="EditEventform" onsubmit="return saveChangesEvent(event)">
+          <div class="form-group">
+            <label for="editDescription">Event Description</label>
+            <textarea id="editDescription" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="editMapLink">Map Link</label>
+            <input type="text" id="editMapLink" placeholder="Enter map link" />
+          </div>
+          <div style="display: flex; justify-content: space-around">
+            <div class="form-group">
+              <label for="editTicketCost">Ticket Cost (₹)</label>
+              <input type="number" id="editTicketCost" required />
+            </div>
+            <div class="form-group">
+              <label for="editNumberOfTickets">Tickets to Add</label>
+              <input type="number" id="editNumberOfTickets" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="eventBanner">Event Banner:</label>
+            <input type="file" id="eventBanner" accept="image/*" />
+          </div>
+          <div class="buttons">
+            <button type="submit" class="button submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="editEventServiceModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title">
+            Edit Service
+            <input
+              id="toggle toggleService"
+              class="toggle"
+              type="checkbox"
+              role="switch"
+              name="toggle"
+            />
+          </div>
+          <button class="close-button" onclick="closeModalServiceEvent()">
+            ×
+          </button>
+        </div>
+        <form
+          id="EditEventServiceform"
+          onsubmit="return saveChangesService(event)"
+        >
+          <div class="form-group">
+            <label for="editServiceDescription">Service Description</label>
+            <textarea id="editServiceDescription" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="editServiceBanner">Service Banner:</label>
+            <input type="file" id="editServiceBanner" accept="image/*" />
+          </div>
+          <div class="buttons">
+            <button type="submit" class="button submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="AddEventModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-title">Add Event</div>
+          <button class="close-button" onclick="closeModalAddEvent()">×</button>
+        </div>
+        <form id="AddEventform" onsubmit="return saveChangesAddEvent(event)">
+          <div class="form-group">
+            <label for="addEventTitle">Event Title</label>
+            <input id="addEventTitle" required></input>
+          </div>
+          <div class="form-group">
+            <label for="addEventDescription">Event Description</label>
+            <textarea id="addEventDescription" required></textarea>
+          </div>
+          <div class="form-group">
+            <label for="addEventDate">Event Date</label>
+            <input type="datetime-local" id="addEventDate" required />
+        </div>
+        
+
+          <div class="form-group">
+            <label for="addEventMapLink">Map Link</label>
+            <input
+              type="text"
+              id="addEventMapLink"
+              placeholder="Enter map link"
+            />
+          </div>
+          <div style="display: flex; justify-content: space-between;gap: 20px;">
+            <div class="form-group">
+              <label for="addEventTicketCost">Ticket Cost (₹)</label>
+              <input type="number" id="addEventTicketCost" required />
+            </div>
+            <div class="form-group">
+              <label for="addNumberOfTickets">No of Tickets</label>
+              <input type="number" id="addNumberOfTickets" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="addEventBanner">Event Banner:</label>
+            <input type="file" id="addEventBanner" accept="image/*" />
+          </div>
+          <div class="buttons">
+            <button type="submit" class="button submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="AddServiceModal" class="modal">
+      <div class="modal-content" >
+        <div class="modal-header">
+          <div class="modal-title">Add Service</div>
+          <button class="close-button" onclick="closeModalAddService()">×</button>
+        </div>
+        <form id="AddServiceform" onsubmit="return saveChangesAddService(event)">
+          <div class="form-group">
+            <label for="addServiceTitle">Service Title</label>
+            <input id="addServiceTitle" required></input>
+          </div>
+          <div class="form-group">
+            <label for="addServiceDescription">Service Description</label>
+            <textarea style="width: 400px;" id="addServiceDescription" required></textarea>
+          </div>
+         <div class="isservice">
+          <label for="addServicetype">Is Service</label>
+          <input
+          id="toggle isservice"
+          class="toggle"
+          type="checkbox"
+          role="switch"
+          name="toggle"
+        />
+         </div>
+     
+        
+
+    
+          <div class="form-group">
+            <label for="addServiceBanner">Service Banner:</label>
+            <input type="file" id="addServiceBanner" accept="image/*" required />
+          </div>
+          <div class="buttons">
+            <button type="submit" class="button submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script type="module" src="Dashboard.js"></script>
+  </body>
+</html>

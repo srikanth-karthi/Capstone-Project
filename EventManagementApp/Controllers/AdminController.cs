@@ -4,6 +4,7 @@ using EventManagementApp.DTOs.QuotationRequest;
 using EventManagementApp.DTOs.ScheduledEvent;
 using EventManagementApp.Exceptions;
 using EventManagementApp.Interfaces.Service;
+using EventManagementApp.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +26,7 @@ namespace EventManagementApp.Controllers
 
         [HttpPost]
         [Route("eventCategory")]
-        public async Task<IActionResult> CreateEventCategory(CreateEventCategoryDTO eventDTO)
+        public async Task<IActionResult> CreateEventCategory([FromForm] CreateEventCategoryDTO eventDTO)
         {
             try
             {
@@ -42,8 +43,8 @@ namespace EventManagementApp.Controllers
                     return BadRequest(customErrorResponse);
                 }
 
-                await _adminService.CreateEventCategory(eventDTO);
-                return StatusCode(StatusCodes.Status201Created, "Event Category created successfully");
+                return StatusCode(StatusCodes.Status201Created,
+                await _adminService.CreateEventCategory(eventDTO));
             }
             catch (Exception ex)
             {
@@ -84,7 +85,7 @@ namespace EventManagementApp.Controllers
 
         [HttpPut]
         [Route("eventCategory/{id}")]
-        public async Task<IActionResult> UpdateEventDetails(int id, [FromBody] UpdateEventCategoryDTO updateEventCategoryDTO)
+        public async Task<IActionResult> UpdateEventDetails(int id, [FromForm] UpdateEventCategoryDTO updateEventCategoryDTO)
         {
             try
             {
@@ -100,8 +101,9 @@ namespace EventManagementApp.Controllers
                     return BadRequest(customErrorResponse);
                 }
 
-                await _adminService.UpdateEventDetails(id, updateEventCategoryDTO);
-                return Ok("Event Category has been Updated");
+               
+
+                return Ok(await _adminService.UpdateEventDetails(id, updateEventCategoryDTO) );
             }
             catch(NoEventCategoryFoundException ex)
             {
@@ -128,6 +130,28 @@ namespace EventManagementApp.Controllers
             }
             catch (Exception ex)
             {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
+            }
+        }
+
+
+        [Route("requests/{id}")]
+        [HttpGet]
+        public async Task<IActionResult> GetUserRequests(int id)
+        {
+            try
+            {
+    
+                var  requests = await _adminService.GetQuotationsByid(id);
+                return Ok(requests);
+            }
+            catch (NoQuotationRequestFoundException)
+            {
+                return NotFound("No request found for a given Id");
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
                 return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
             }
         }

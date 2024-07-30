@@ -19,7 +19,7 @@ namespace EventManagementApp.Repositories
                 {
                     ScheduledEventId = e.ScheduledEventId,
                     ClientName = e.User.FullName,
-      
+                     ClientEmail = e.User.Email,
                     EventCategory = e.EventCategory.EventName,
                     CateringInstructions = e.QuotationRequest.CateringInstructions,
                     FoodPreference = (Enums.FoodPreference)e.QuotationRequest.FoodPreference,

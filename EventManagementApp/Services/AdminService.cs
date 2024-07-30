@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using EventManagementApp.DTOs;
 using EventManagementApp.DTOs.EventCategory;
 using EventManagementApp.DTOs.QuotationRequest;
 using EventManagementApp.DTOs.ScheduledEvent;
@@ -11,6 +12,7 @@ namespace EventManagementApp.Services
 {
     public class AdminService : IAdminService
     {
+        private readonly IBlobService _blobService;
         private readonly IEventCategoryRepository _eventCategoryRepository;
         private readonly IScheduledEventRepository _scheduledEventRepository;
         private readonly IQuotationRequestRepository _quotationRequestRepository;
@@ -18,10 +20,11 @@ namespace EventManagementApp.Services
         public AdminService(
             IEventCategoryRepository eventCategoryRepository,
             IScheduledEventRepository scheduledEventRepository,
-            IQuotationRequestRepository quotationRequestRepository
-
+            IQuotationRequestRepository quotationRequestRepository,
+            IBlobService blobService
             )
         {
+            _blobService= blobService;
             _eventCategoryRepository = eventCategoryRepository;
             _scheduledEventRepository = scheduledEventRepository;
             _quotationRequestRepository = quotationRequestRepository;
@@ -47,15 +50,15 @@ namespace EventManagementApp.Services
             return eventCategories;
         }
 
-        public async Task CreateEventCategory(CreateEventCategoryDTO eventCategoryDTO)
+        public async Task<EventCategory> CreateEventCategory(CreateEventCategoryDTO eventCategoryDTO)
         {
             EventCategory category = new EventCategory();
             category.EventName = eventCategoryDTO.EventName;
             category.Description = eventCategoryDTO.Description;
-            category.Poster=eventCategoryDTO.Poster;
+            category.Poster = await _blobService.UploadFileAsync(eventCategoryDTO.Poster, eventCategoryDTO.Poster.FileName);
             category.IsService=eventCategoryDTO.IsService;
             category.IsActive = true;
-            await _eventCategoryRepository.Add(category);
+          return   await _eventCategoryRepository.Add(category);
         }
 
         public async Task<List<AdminScheduledEventListDTO>> GetScheduledEvents()
@@ -64,7 +67,7 @@ namespace EventManagementApp.Services
             return events;
         }
 
-        public async Task UpdateEventDetails(int id, UpdateEventCategoryDTO updateEventCategoryDTO)
+        public async Task<EventCategory> UpdateEventDetails(int id, UpdateEventCategoryDTO updateEventCategoryDTO)
         {
             EventCategory eventCategory = await _eventCategoryRepository.GetById(id);
             if (eventCategory == null)
@@ -93,19 +96,26 @@ namespace EventManagementApp.Services
 
             if (updateEventCategoryDTO.Poster != null)
             {
-                eventCategory.Poster = updateEventCategoryDTO.Poster;
+                eventCategory.Poster = await _blobService.UploadFileAsync(updateEventCategoryDTO.Poster, updateEventCategoryDTO.Poster.FileName);
             }
             if (updateEventCategoryDTO.IsActive != null)
             {
                 eventCategory.IsActive = (bool)updateEventCategoryDTO.IsActive;
             }
 
-            await _eventCategoryRepository.Update(eventCategory);
+            return await _eventCategoryRepository.Update(eventCategory);
         }
 
         public async Task<List<BasicQuotationRequestDTO>> GetQuotations(bool isNew)
         {
             List<BasicQuotationRequestDTO> requests = await _quotationRequestRepository.GetAllWithEventName(isNew);
+            return requests;
+        }
+
+        public async Task<BasicQuotationRequestDTO> GetQuotationsByid(int id)
+        {
+            var requests = await _quotationRequestRepository.GetRequestById(id)?? throw new NoQuotationRequestFoundException();
+            
             return requests;
         }
     }

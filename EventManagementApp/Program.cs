@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using static BlobService;
 
 namespace EventManagementApp
 {
@@ -78,7 +79,7 @@ namespace EventManagementApp
             builder.Services.AddScoped<ITicketService, TicketService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<BlobService, BlobService>();
+            builder.Services.AddScoped<IBlobService, BlobService>();
 
             #endregion
 

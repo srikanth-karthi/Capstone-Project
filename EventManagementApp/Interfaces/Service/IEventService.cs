@@ -11,7 +11,7 @@ namespace EventManagementApp.Interfaces.Service
         Task<List<EventDTO>> GetAllEvents();
         Task<List<EventDTO>> GetEventsForUser();
         Task<List<TicketDTO>> GetTicketsForEvent(int eventId);
-        Task<Event> UpdateEvent(EventDTO eventDto);
-        Task<Event> AddEvent(EventDTO eventDto);
+        Task<Event> UpdateEvent(UpdateEventDto eventDto, int eventId);
+        Task<Event> AddEvent(AddEventDto eventDto);
     }
 }

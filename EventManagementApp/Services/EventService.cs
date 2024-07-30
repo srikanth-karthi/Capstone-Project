@@ -13,10 +13,12 @@ namespace EventManagementApp.Services
     public class EventService : IEventService
     {
         private readonly IEventRepository _eventRepository;
+        private readonly IBlobService _blobService;
 
-        public EventService(IEventRepository eventRepository)
+        public EventService(IEventRepository eventRepository, IBlobService blobService)
         {
             _eventRepository = eventRepository;
+            _blobService= blobService;
         }
 
         public async Task<List<EventDTO>> GetAllEvents()
@@ -60,28 +62,33 @@ namespace EventManagementApp.Services
             return tickets;
         }
 
-        public async Task<Event> UpdateEvent(EventDTO eventDto)
+        public async Task<Event> UpdateEvent(UpdateEventDto eventDto, int eventId)
         {
-            var eventToUpdate = await _eventRepository.GetById(eventDto.EventId?? 0);
+            var eventToUpdate = await _eventRepository.GetById(eventId);
             if (eventToUpdate == null)
             {
-                throw new EventNotFoundExceptions((int)eventDto.EventId);
+                throw new EventNotFoundExceptions(eventId);
             }
 
-            eventToUpdate.EventName = eventDto.EventName;
-            eventToUpdate.Description = eventDto.Description;
-            eventToUpdate.Maplink = eventDto.Maplink;
-            eventToUpdate.IsActive = eventDto.IsActive;
-            eventToUpdate.Poster = eventDto.Poster;
-            eventToUpdate.NumberOfTickets = eventDto.NumberOfTickets;
-            eventToUpdate.RemainingTickets = (int)eventDto.RemainingTickets;
-            eventToUpdate.TicketCost = eventDto.TicketCost;
+            eventToUpdate.Description = eventDto.Description ?? eventToUpdate.Description;
+            eventToUpdate.Maplink = eventDto.Maplink ?? eventToUpdate.Maplink;
+            eventToUpdate.IsActive = eventDto.IsActive ?? eventToUpdate.IsActive;
 
+            if (eventDto.Poster != null)
+            {
+                string posterUrl = await _blobService.UploadFileAsync(eventDto.Poster, eventDto.Poster.FileName);
+                eventToUpdate.Poster = posterUrl;
+            }
+
+            eventToUpdate.NumberOfTickets += eventDto.AddedTicket ?? 0;
+            eventToUpdate.RemainingTickets += eventDto.AddedTicket ?? 0;
+            eventToUpdate.TicketCost = eventDto.TicketCost ?? eventToUpdate.TicketCost;
 
             return await _eventRepository.Update(eventToUpdate);
         }
 
-        public async Task<Event> AddEvent(EventDTO eventDto)
+
+        public async Task<Event> AddEvent(AddEventDto eventDto)
         {
             if (IsWeekday(eventDto.EventDate) && eventDto.TicketCost > 50)
             {
@@ -94,8 +101,8 @@ namespace EventManagementApp.Services
                 Description = eventDto.Description,
                 EventDate = eventDto.EventDate,
                 Maplink=eventDto.Maplink,
-                IsActive = eventDto.IsActive,
-                Poster = eventDto.Poster,
+                IsActive=true,
+                Poster = await _blobService.UploadFileAsync(eventDto.Poster, eventDto.Poster.FileName),
                 NumberOfTickets = eventDto.NumberOfTickets,
                 RemainingTickets = eventDto.NumberOfTickets, 
                 TicketCost = eventDto.TicketCost

@@ -7,5 +7,7 @@ namespace EventManagementApp.Interfaces.Repository
     {
         public Task<QuotationRequest> GetById(int id, int userId);
         public Task<List<BasicQuotationRequestDTO>> GetAllWithEventName(bool IsNew);
+
+         Task<UserQuotationRequestDTO> GetRequestById(int quotationRequestId);
     }
 }

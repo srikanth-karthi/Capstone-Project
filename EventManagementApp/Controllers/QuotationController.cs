@@ -86,12 +86,8 @@ namespace EventManagementApp.Controllers
                     return BadRequest(customErrorResponse);
                 }
 
-                int QuotationResponseId = await _quotationResponseService.CreateQuotationResponse(createQuotationResponseDTO);
-                return StatusCode(StatusCodes.Status201Created, new
-                {
-                    Message = "Quotation Responded successfully",
-                    QuotationResponseId
-                });
+
+                return StatusCode(StatusCodes.Status201Created, await _quotationResponseService.CreateQuotationResponse(createQuotationResponseDTO));
             }
             catch (NoQuotationRequestFoundException ex)
             {
@@ -116,6 +112,9 @@ namespace EventManagementApp.Controllers
             }
 
         }
+
+
+
 
     }
 }
