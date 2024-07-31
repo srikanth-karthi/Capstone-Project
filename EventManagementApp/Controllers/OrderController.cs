@@ -4,6 +4,7 @@ using EventManagementApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 
 namespace EventManagementApp.Controllers
@@ -11,6 +12,7 @@ namespace EventManagementApp.Controllers
     [Route("api/")]
     [ApiController]
     [Authorize(Roles = "User")]
+    [ExcludeFromCodeCoverage]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;

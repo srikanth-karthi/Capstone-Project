@@ -21,7 +21,7 @@ namespace EventManagementApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+
             builder.Services.AddControllers(options =>
             {
                 options.Filters.Add(new AuthorizeFilter());
@@ -52,7 +52,7 @@ namespace EventManagementApp
             builder.Services.AddDbContext<EventManagementDBContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("default"))
             );
-
+            builder.Services.AddHttpContextAccessor();
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin", builder =>
@@ -101,18 +101,34 @@ namespace EventManagementApp
 
             var app = builder.Build();
 
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<EventManagementDBContext>();
+                    context.Database.Migrate();
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred while migrating the database.");
+                }
+            }
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
 
-            app.UseCors("AllowSpecificOrigin");
-            app.UseAuthentication(); 
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseCors("AllowAllOrigins");
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
-
             app.Run();
         }
     }

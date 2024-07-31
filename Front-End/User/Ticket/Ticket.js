@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", async function () {
    tickets = await fetchData("api/Ticket/GetTickets");
 
   rendertickets(tickets)
-  // Attach event listener to all buttons with class "confirmticket"
 });
 
 

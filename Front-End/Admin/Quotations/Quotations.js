@@ -171,7 +171,7 @@ ${
                 }
             `;
 
-      // Add animation effect
+     
       setTimeout(() => {
         responseDetails.style.opacity = 1;
       }, 100);

@@ -4,6 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Eventify</title>
+    <link
+      rel="shortcut icon"
+      href="../../asserts/logo.svg"
+      type="image/x-icon"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -21,11 +26,11 @@
         Eventify
       </div>
       <ul class="nav-links">
-        <li><a href="#" style="color: rgba(255, 224, 71, 1);">Home</a></li>
+        <li><a href="#" style="color: rgba(255, 224, 71, 1)">Home</a></li>
         <li><a href="../Quotations/Quotations.html">Quotation</a></li>
         <li><a href="../Event/Event.html">Scheduled Orders</a></li>
       </ul>
- 
+
       <div class="hamburger-menu">
         <div class="bar"></div>
         <div class="bar"></div>
@@ -46,12 +51,13 @@
       </section>
 
       <section class="services">
-        <h2>Manage Services
+        <h2>
+          Manage Services
           <img
-          src="../../asserts/add.svg"
-          alt="Add Event"
-          onclick="openAddServiceModal()"
-        />
+            src="../../asserts/add.svg"
+            alt="Add Event"
+            onclick="openAddServiceModal()"
+          />
         </h2>
         <div class="service-list"></div>
         <button id="seeMoreBtn">See More</button>
@@ -168,8 +174,13 @@
       <h1 id="event-category-eventTitle">Event Title</h1>
       <div class="event-info">
         <div class="event-category-description">
-          <h2>Service Description</h2>
-          <p id="event-category-Description">Host</p>
+          <h2 class="Service-Description">
+            Service Description
+            <button id="show-reviews" onclick="showreviews()">
+              Show Reviews
+            </button>
+          </h2>
+          <p id="event-category-Description"></p>
         </div>
       </div>
     </div>
@@ -263,7 +274,7 @@
         <form id="AddEventform" onsubmit="return saveChangesAddEvent(event)">
           <div class="form-group">
             <label for="addEventTitle">Event Title</label>
-            <input id="addEventTitle" required></input>
+            <input id="addEventTitle" required />
           </div>
           <div class="form-group">
             <label for="addEventDescription">Event Description</label>
@@ -272,8 +283,7 @@
           <div class="form-group">
             <label for="addEventDate">Event Date</label>
             <input type="datetime-local" id="addEventDate" required />
-        </div>
-        
+          </div>
 
           <div class="form-group">
             <label for="addEventMapLink">Map Link</label>
@@ -283,7 +293,7 @@
               placeholder="Enter map link"
             />
           </div>
-          <div style="display: flex; justify-content: space-between;gap: 20px;">
+          <div style="display: flex; justify-content: space-between; gap: 20px">
             <div class="form-group">
               <label for="addEventTicketCost">Ticket Cost (₹)</label>
               <input type="number" id="addEventTicketCost" required />
@@ -305,37 +315,48 @@
     </div>
 
     <div id="AddServiceModal" class="modal">
-      <div class="modal-content" >
+      <div class="modal-content">
         <div class="modal-header">
           <div class="modal-title">Add Service</div>
-          <button class="close-button" onclick="closeModalAddService()">×</button>
+          <button class="close-button" onclick="closeModalAddService()">
+            ×
+          </button>
         </div>
-        <form id="AddServiceform" onsubmit="return saveChangesAddService(event)">
+        <form
+          id="AddServiceform"
+          onsubmit="return saveChangesAddService(event)"
+        >
           <div class="form-group">
             <label for="addServiceTitle">Service Title</label>
-            <input id="addServiceTitle" required></input>
+            <input id="addServiceTitle" required />
           </div>
           <div class="form-group">
             <label for="addServiceDescription">Service Description</label>
-            <textarea style="width: 400px;" id="addServiceDescription" required></textarea>
+            <textarea
+              style="width: 400px"
+              id="addServiceDescription"
+              required
+            ></textarea>
           </div>
-         <div class="isservice">
-          <label for="addServicetype">Is Service</label>
-          <input
-          id="toggle isservice"
-          class="toggle"
-          type="checkbox"
-          role="switch"
-          name="toggle"
-        />
-         </div>
-     
-        
+          <div class="isservice">
+            <label for="addServicetype">Is Service</label>
+            <input
+              id="toggle isservice"
+              class="toggle"
+              type="checkbox"
+              role="switch"
+              name="toggle"
+            />
+          </div>
 
-    
           <div class="form-group">
             <label for="addServiceBanner">Service Banner:</label>
-            <input type="file" id="addServiceBanner" accept="image/*" required />
+            <input
+              type="file"
+              id="addServiceBanner"
+              accept="image/*"
+              required
+            />
           </div>
           <div class="buttons">
             <button type="submit" class="button submit">Submit</button>
@@ -343,6 +364,16 @@
         </form>
       </div>
     </div>
+    <div id="reviewModal" class="review-modal">
+      <div class="review-modal-content">
+        <span class="review-close">&times;</span>
+        <h2 class="review-title">Reviews</h2>
+        <div class="review-list">
+
+        </div>
+      </div>
+    </div>
+
     <script type="module" src="Dashboard.js"></script>
   </body>
 </html>

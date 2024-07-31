@@ -47,14 +47,13 @@ const data = await fetchData("api/user/eventCategory");
 function Rendercalander()
 {
 const events = data.map(event => {
-    const color = event.isCompleted ? '#24d71e' : '#ff0000'; // Green for completed, orange for pending
+    const color = event.isCompleted ? '#24d71e' : '#ff0000';
     return {
       start: new Date(event.eventStartDate).toISOString(),
       end: new Date(event.eventEndDate).toISOString(),
       title: event.eventCategory,
       color: color,
-      eventid: event.scheduledEventId // Adding ID for event reference
-    };
+      eventid: event.scheduledEventId    };
   });
   inst.setEvents(events);
 }
@@ -134,7 +133,7 @@ document.getElementById("submitReviewButton").addEventListener("click", async fu
           a.isReviewed = true;
         } else {
           showToast("warning", "Warning", "Please mark the event as completed");
-          throw new Error("Event not completed");
+  
         }
       }
     });

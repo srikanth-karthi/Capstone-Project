@@ -62,7 +62,6 @@ async function loadEvents() {
         document.getElementById(
           "ticketCost"
         ).innerText = `Standard Ticket: ₹ ${event.ticketCost} each`;
-        // document.getElementById("eventLocation").innerText =;
         document.getElementById("eventHost").innerText =  event.description;
         document.getElementById(
           "eventMap"
@@ -345,7 +344,6 @@ function openeventCategoryModal() {
     }
   });
 
-  // Reset the form and display the modal
   document.getElementById("form").reset();
   document.getElementById("formModal").style.display = "flex";
   setTimeout(() => {

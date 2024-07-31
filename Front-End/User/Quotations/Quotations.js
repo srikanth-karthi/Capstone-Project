@@ -117,7 +117,6 @@ ${response.clientResponse.isPaid ? `<div class="paid"><img src="../../asserts/pa
             ` : ""}
         `;
 
-        // Add animation effect
         setTimeout(() => {
             responseDetails.style.opacity = 1;
         }, 100);

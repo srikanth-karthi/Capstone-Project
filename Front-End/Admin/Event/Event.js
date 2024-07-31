@@ -48,13 +48,13 @@ const data = await fetchData("api/admin/eventCategory/scheduled");
 function Rendercalander()
 {
 const events = data.map(event => {
-    const color = event.isCompleted ? '#24d71e' : '#ff0000'; // Green for completed, orange for pending
+    const color = event.isCompleted ? '#24d71e' : '#ff0000';
     return {
       start: new Date(event.eventStartDate).toISOString(),
       end: new Date(event.eventEndDate).toISOString(),
       title: `${event.clientName}'s-${event.eventCategory}`,
       color: color,
-      eventid: event.scheduledEventId // Adding ID for event reference
+      eventid: event.scheduledEventId 
     };
   });
   inst.setEvents(events);

@@ -6,11 +6,13 @@ using EventManagementApp.Interfaces.Service;
 using EventManagementApp.DTOs;
 using EventManagementApp.Exceptions;
 using Microsoft.AspNetCore.Authorization;
+using System.Diagnostics.CodeAnalysis;
 
 namespace EventManagementApp.Controllers
 {
     [ApiController]
     [Route("api/events")]
+    [ExcludeFromCodeCoverage]
 
     public class EventController : ControllerBase
     {

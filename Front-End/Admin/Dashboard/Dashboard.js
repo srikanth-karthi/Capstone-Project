@@ -5,10 +5,29 @@ import { toggleDisplay } from "../../Package/Domtools.js";
 if (!localStorage.getItem("authToken")) {
   window.location.href = "/";
 }
+let reviews=[]
 let events = [];
 var   currentEvent;
 let services = [];
    initialize();
+
+
+
+   const hamburgerMenu = document.querySelector(".hamburger-menu");
+const navLinks = document.querySelector(".nav-links");
+
+hamburgerMenu.addEventListener("click", function () {
+  navLinks.classList.toggle("active");
+});
+
+window.addEventListener("click", function (event) {
+  if (
+    !navLinks.contains(event.target) &&
+    !hamburgerMenu.contains(event.target)
+  ) {
+    navLinks.classList.remove("active");
+  }
+});
 
 async function initialize() {
   events=await fetchData("api/events/Admin");
@@ -20,9 +39,11 @@ loadEvents()
  
 }
 
+handleAuthId();
+
 function handleAuthId() {
-  const authId = getQueryParam("authid");
-  if (authId == 1) {
+  const authid = getQueryParam("authid");
+  if (authid == 1) {
     showToast("success", "Success", "Login Successful.");
     removeQueryParam("authid");
   }
@@ -40,7 +61,6 @@ function removeQueryParam(param) {
   url.search = urlParams.toString();
   window.history.replaceState({}, document.title, url.toString());
 }
-
 
  function loadEvents() {
 
@@ -123,6 +143,8 @@ function showEventDetails(eventId) {
 
 function showServiceDetails(eventCategoryId) {
   const service = services.find(service => service.eventCategoryId === eventCategoryId);
+
+  reviews=service.reviews
   toggleDisplay("class", "event-category-container", "block");
   toggleDisplay("class", "main-content", "none");
 
@@ -134,6 +156,41 @@ function showServiceDetails(eventCategoryId) {
     </button>
   `;
   document.getElementById("event-category-Description").innerText = service.description;
+
+}
+
+function showreviews()
+{
+ if(reviews.length <= 0)
+ {
+  showToast('warning',"info","No Review for the event")
+  return
+ }
+
+    const reviewModal = document.getElementById('reviewModal');
+    const closeModalBtn = document.querySelector('.review-close');
+    const reviewList = document.querySelector('.review-list');
+
+
+        reviewList.innerHTML = '';
+        reviews.forEach(review => {
+            const reviewItem = document.createElement('div');
+            reviewItem.classList.add('review-item');
+            reviewItem.innerHTML = `
+            <div class="review-header">
+                <div class="review-user">${review.userName}</div>
+                <div class="review-rating">Rating: ${review.rating} ⭐</div>
+                </div>
+                <div class="review-comments">${review.comments}</div>
+            `;
+            reviewList.appendChild(reviewItem);
+        });
+        reviewModal.style.display = 'block';
+
+
+    closeModalBtn.addEventListener('click', function() {
+        reviewModal.style.display = 'none';
+    });
 }
 
 function openEditEventModal(eventId) {
@@ -336,6 +393,7 @@ async function saveChangesAddEvent(event) {
 
 
 }
+window.showreviews=showreviews
 window.openEditEventModal = openEditEventModal;
 window.closeModalAddEvent = closeModalAddEvent;
 window.saveChangesEvent = saveChangesEvent;
