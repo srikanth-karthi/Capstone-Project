@@ -21,7 +21,7 @@ nupkg/
 # Code Rush
 .cr/
 
-Front-End/asserts/background-video.mp4
+
 
 # User-specific files
 *.suo
