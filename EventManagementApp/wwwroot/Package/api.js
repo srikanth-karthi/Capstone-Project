@@ -1,4 +1,4 @@
-export const baseUrl = "http://localhost:5232/";
+export const baseUrl = "http://localhost:5500/";
 
 export async function fetchData(
     url,
@@ -21,7 +21,7 @@ export async function fetchData(
 
     if (response.status == 401 && !isauth || response.status == 403 && !isauth) {
       localStorage.clear()
-      window.location.href = "/Auth/login.html?authid=3";
+      window.location.href = "/";
       return;
     }
     if (!response.ok) {

@@ -23,7 +23,10 @@ window.addEventListener("click", function (event) {
 var tickets ;
 document.addEventListener("DOMContentLoaded", async function () {
    tickets = await fetchData("api/Ticket/GetTickets");
-
+   if(tickets.length <= 0) {
+    showToast('warning','info',"No tickets Available")
+return
+  }
   rendertickets(tickets)
 });
 
@@ -132,3 +135,27 @@ async function handlePayment(ticketId, quantity) {
     
   }
 }
+document.getElementById('profileBtn').addEventListener('click', function() {
+  var popup = document.getElementById('profilePopup');
+  if (popup.style.display === 'none' || popup.style.display === '') {
+      var fullName = localStorage.getItem('fullName');
+      var email = localStorage.getItem('email');
+      var profileUrl = localStorage.getItem('profileUrl');
+
+      document.getElementById('profileName').textContent = fullName ? fullName : 'John Doe';
+      document.getElementById('profileEmail').textContent = email ? email : 'john.doe@example.com';
+      document.getElementById('profileImage').src = profileUrl ? profileUrl : 'default-profile.jpg';
+
+      popup.style.display = 'block';
+  } else {
+      popup.style.display = 'none';
+  }
+});
+
+window.addEventListener('click', function(event) {
+  var popup = document.getElementById('profilePopup');
+  var profileBtn = document.getElementById('profileBtn');
+  if (popup.style.display === 'block' && !popup.contains(event.target) && event.target !== profileBtn) {
+      popup.style.display = 'none';
+  }
+});

@@ -129,6 +129,17 @@ body {
     .hamburger-menu {
       display: flex;
     }
+
+    .ticket
+    {
+      scale: .5;
+    }
+    #tickets-container
+    {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
   }
   
 
@@ -155,7 +166,7 @@ body {
   .stub {
     background: #ef5658;
     height: 250px;
-    width: 250px;
+
     color: white;
     padding: 20px;
     position: relative;
@@ -317,3 +328,33 @@ margin-top: 30px;
     text-transform: uppercase;
   }
   
+
+  .profile-popup {
+    display: none;
+    position: fixed;
+    top: 60px;
+    right: 20px;
+  width: fit-content;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: #fff;
+    text-align: center;
+  }
+  
+  .profile-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+  
+  .profile-name,
+  .profile-email {
+    margin: 0;
+    font-size: 14px;
+  }
+  #profileBtn
+  {
+    cursor: pointer;
+  }

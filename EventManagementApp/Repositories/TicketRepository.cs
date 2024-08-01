@@ -29,7 +29,7 @@ namespace EventManagementApp.Repositories
             return await _context.Tickets
                 .Include(t => t.Event)
                 .Where(t => t.UserId == userId)
-                
+                .OrderByDescending(t => t.CreatedAt)  
                 .ToListAsync();
         }
 

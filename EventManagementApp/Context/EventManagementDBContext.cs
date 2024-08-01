@@ -200,7 +200,7 @@ namespace EventManagementApp.Context
             User admin = new User();
 
             admin.Role = UserType.Admin;
-
+            admin.ProfileUrl = "";
             admin.UserId = 1;
             admin.FullName = "Book My Event";
             admin.Email = "bookmyevent24@gmail.com";

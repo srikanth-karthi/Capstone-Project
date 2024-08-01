@@ -43,6 +43,24 @@ namespace EventManagementApp.Controllers
             }
         }
 
+        [Route("profile")]
+        [HttpGet]
+        public async Task<IActionResult> GetUserprofile()
+        {
+            try
+            {
+                int UserId = int.Parse(User.FindFirst("userId").Value.ToString());
+                    var profile = await _userService.GetUserProfile(UserId);
+                return Ok(profile);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error");
+            }
+        }
+
+
         [Route("requests/{id}")]
         [HttpGet]
         public async Task<IActionResult> GetUserRequests(int id)

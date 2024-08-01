@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 5500
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
@@ -17,5 +17,5 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 COPY wwwroot ./wwwroot
-ENTRYPOINT ["dotnet", "Job_Portal_Application.dll"]
+ENTRYPOINT ["dotnet", "EventManagementApp.dll"]
 

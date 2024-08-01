@@ -384,12 +384,20 @@ async function saveChangesAddEvent(event) {
   formData.append('NumberOfTickets', numberOfTickets);
   formData.append('Poster', bannerFile);
   formData.append('EventDate', eventDate);
-
+try {
   const newevent=await fetchData('api/Events',"POST",formData,true);
   events.push(newevent);
   showToast("success", "Success", "Event  Added Successfully");
   closeModalAddEvent()
   loadEvents();
+} catch (error) {
+  
+  if (error.message.includes("400")) {
+
+    showToast("error", "Error", "Event Posted on weekdays ticket amount cannot be greater than ₹50");
+  }
+}
+
 
 
 }

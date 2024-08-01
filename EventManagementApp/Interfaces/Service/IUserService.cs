@@ -10,7 +10,7 @@ namespace EventManagementApp.Interfaces.Service
     public interface IUserService
     {
         public Task<List<BasicQuotationRequestDTO>> GetUserRequests(int userId);
-
+        Task<UserDTO> GetUserProfile(int userId);
         public Task<UserQuotationRequestDTO> GetUserRequestById(int userId, int quotationRequestId);
         public Task<List<UserOrderListReturnDTO>> GetUserOrders(int userId);
         public Task<List<BasicScheduledEventListDTO>> GetUserEvents(int userId);

@@ -91,5 +91,18 @@ namespace EventManagementApp.Services
             List < BasicScheduledEventListDTO> scheduledEvents = await _scheduledEventRepository.GetUserScheduledEvents(userId);
             return scheduledEvents;
         }
+
+
+        public async Task<UserDTO> GetUserProfile(int userId)
+        {
+           var  user = await _userRepository.GetById(userId);
+            return new UserDTO
+            {
+                UserId = user.UserId,
+                FullName = user.FullName,
+                Email = user.Email,
+                ProfileUrl = user.ProfileUrl,
+            };
+        }
     }
 }

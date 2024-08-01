@@ -9,7 +9,7 @@ namespace EventManagementApp.Models
         public int UserId { get; set; }
         public string Email { get; set; }
         public string FullName { get; set; }
-
+        public string ProfileUrl { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public UserType Role { get; set; }
         public List<QuotationRequest> QuotationRequests { get; set; }

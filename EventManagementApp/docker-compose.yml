@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlserver
+    environment:
+      - SA_PASSWORD=YourStrong@Passw0rd
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
+    networks:
+      - EventmanagementApp
+
+  eventmanagement:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - sqlserver
+    networks:
+      - EventmanagementApp
+    ports:
+      - "5500:5500"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=JobPortalDB;User Id=sa;Password=YourStrong@Passw0rd;Encrypt=false;TrustServerCertificate=True
+
+networks:
+  EventmanagementApp:
+    driver: bridge

@@ -1,0 +1,306 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  width: 100%;
+  background-color: rgb(0, 0, 0);
+}
+
+.navbar .logo {
+  display: flex;
+  font-family: "Lalezar", system-ui;
+  letter-spacing: 1.2px;
+  color: rgba(255, 224, 71, 1);
+  align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.navbar .logo img {
+  width: 50px;
+}
+
+.navbar .nav-links {
+  list-style: none;
+  display: flex;
+  padding-left: 50px;
+  gap: 20px;
+}
+
+.navbar .nav-links li {
+  display: inline;
+}
+
+.navbar .nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar .headericons {
+  display: flex;
+  gap: 30px;
+}
+
+.navbar .headericons img {
+  width: 30px;
+}
+
+.navbar .auth-buttons button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.navbar .auth-buttons button:first-child {
+  background-color: transparent;
+  color: white;
+}
+
+.navbar .auth-buttons button:last-child {
+  background-color: #ffd700;
+  color: black;
+}
+
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.hamburger-menu .bar {
+  width: 25px;
+  height: 3px;
+  background-color: white;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 20px;
+  }
+
+  .navbar .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background-color: rgb(0, 0, 0);
+    width: 200px;
+    border-radius: 5px;
+    padding: 10px 0;
+  }
+
+  .navbar .nav-links.active {
+    display: flex;
+  }
+
+  .navbar .nav-links li {
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .hamburger-menu {
+    display: flex;
+  }
+}
+.container {
+  width: 90%;
+  background-color: #fff;
+  padding: 20px;
+
+  border-radius: 10px;
+}
+
+h1 {
+  text-align: left;
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.quotation {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s, box-shadow 0.3s;
+  background-color: #fdfdfd;
+  cursor: pointer;
+}
+
+.quotation:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.quotation h2,
+.quotation-item h2 {
+  display: flex;
+  align-items: center;
+  margin: 0 0 10px 0;
+  font-size: 1.2em;
+  color: #333;
+  font-weight: bold;
+}
+
+.quotation p {
+  margin: 5px 0;
+  color: #555;
+  margin-bottom: 10px;
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.5;
+  font-size: 0.9em;
+}
+
+.quotation p strong {
+  margin-right: 5px;
+  font-family: "Montserrat", sans-serif;
+  color: #333;
+}
+
+.status {
+  margin-left: auto;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-weight: bold;
+
+  color: #fff;
+  text-align: center;
+  font-size: 0.5 em;
+}
+
+.status-initiated {
+  background-color: #ff9900;
+}
+
+.status-responded,
+.status-accepted {
+  background-color: #4caf50;
+}
+
+.paid {
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  width: 90px;
+  display: flex;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  gap: 10px;
+  background-color: #2195f39a;
+}
+
+.status-denied {
+  background-color: #f44336;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+  }
+
+  .quotation {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .status {
+    align-self: flex-end;
+    margin-top: 10px;
+  }
+}
+
+.quotation-item {
+  display: flex;
+  gap: 10px;
+}
+
+#response-details {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  display: none;
+  background-color: #f7f7f7;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.buttons {
+  margin-top: 15px;
+}
+
+.buttons button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 0.9em;
+}
+
+.buttons .accept {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.buttons .reject {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.profile-popup {
+  display: none;
+  position: fixed;
+  top: 60px;
+  right: 20px;
+  width: fit-content;
+  padding: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.profile-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.profile-name,
+.profile-email {
+  margin: 0;
+  font-size: 14px;
+}
+#profileBtn {
+  cursor: pointer;
+}

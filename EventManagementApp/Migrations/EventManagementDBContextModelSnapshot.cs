@@ -409,6 +409,10 @@ namespace EventManagementApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ProfileUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -421,9 +425,10 @@ namespace EventManagementApp.Migrations
                         new
                         {
                             UserId = 1,
-                            CreatedAt = new DateTime(2024, 7, 31, 16, 57, 22, 686, DateTimeKind.Local).AddTicks(9599),
+                            CreatedAt = new DateTime(2024, 8, 1, 17, 14, 38, 104, DateTimeKind.Local).AddTicks(6361),
                             Email = "bookmyevent24@gmail.com",
                             FullName = "Book My Event",
+                            ProfileUrl = "",
                             Role = "Admin"
                         });
                 });

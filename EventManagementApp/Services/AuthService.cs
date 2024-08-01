@@ -46,7 +46,8 @@ namespace EventManagementApp.Services
             {
                 Email = payload.Email,
                 FullName = payload.Name,
-                Role=UserType.User
+                ProfileUrl = payload.Picture,
+                Role =UserType.User
             };
             user = await _userRepository.Add(user);
 

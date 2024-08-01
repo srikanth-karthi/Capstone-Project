@@ -116,6 +116,7 @@ async function loadServices() {
       serviceItem.className = "service-item";
       if (index >= 5) serviceItem.classList.add("hidden");
 
+
       const img = document.createElement("img");
       img.src = service.poster
       img.alt = service.eventName;
@@ -154,6 +155,30 @@ async function loadServices() {
   }
 }
 
+document.getElementById('profileBtn').addEventListener('click', function() {
+  var popup = document.getElementById('profilePopup');
+  if (popup.style.display === 'none' || popup.style.display === '') {
+      var fullName = localStorage.getItem('fullName');
+      var email = localStorage.getItem('email');
+      var profileUrl = localStorage.getItem('profileUrl');
+
+      document.getElementById('profileName').textContent = fullName ? fullName : 'John Doe';
+      document.getElementById('profileEmail').textContent = email ? email : 'john.doe@example.com';
+      document.getElementById('profileImage').src = profileUrl ? profileUrl : 'default-profile.jpg';
+
+      popup.style.display = 'block';
+  } else {
+      popup.style.display = 'none';
+  }
+});
+
+window.addEventListener('click', function(event) {
+  var popup = document.getElementById('profilePopup');
+  var profileBtn = document.getElementById('profileBtn');
+  if (popup.style.display === 'block' && !popup.contains(event.target) && event.target !== profileBtn) {
+      popup.style.display = 'none';
+  }
+});
 function calculateTotal() {
   const total = quantity * ticketPrice;
   document.getElementById("book-tickets").textContent = `Pay: ₹ ${total}`;
@@ -220,6 +245,12 @@ async function handlePayment() {
 
       error.message= JSON.parse(error.message)
       if (error.message.body.avaliableTickets)
+
+        if(error.message.body.avaliableTickets==0)
+        {
+          document.querySelector(".ticket-container").innerHTML=` <img style="margin-top:30px;margin-left:60px;" src="../../asserts/soldout.png" width="70" alt="ticket-icon " />`
+          
+        }
         events.forEach((event) => {
 
           if (
@@ -237,7 +268,7 @@ async function handlePayment() {
         quantityDisplay.textContent = quantity;
         document.getElementById("book-tickets").textContent ="Book now";
     
-      showToast("error", "Error", "Ticket not Avaliable");
+      showToast("error", "Error", "Ticket not Avaliable");  
     }
   }
 }
@@ -266,6 +297,12 @@ document.addEventListener("DOMContentLoaded", async function () {
       navLinks.classList.remove("active");
     }
   });
+
+const profile=await fetchData('api/user/profile');
+console.log(profile);
+localStorage.setItem("fullName", profile.fullName);
+localStorage.setItem("email", profile.email);  
+localStorage.setItem("profileUrl", profile.profileUrl);  
 
   await loadEvents();
   await loadServices();

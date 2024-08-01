@@ -61,6 +61,7 @@ namespace EventManagementApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfileUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -297,8 +298,8 @@ namespace EventManagementApp.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "UserId", "CreatedAt", "Email", "FullName", "Role" },
-                values: new object[] { 1, new DateTime(2024, 7, 31, 16, 57, 22, 686, DateTimeKind.Local).AddTicks(9599), "bookmyevent24@gmail.com", "Book My Event", "Admin" });
+                columns: new[] { "UserId", "CreatedAt", "Email", "FullName", "ProfileUrl", "Role" },
+                values: new object[] { 1, new DateTime(2024, 8, 1, 17, 14, 38, 104, DateTimeKind.Local).AddTicks(6361), "bookmyevent24@gmail.com", "Book My Event", "", "Admin" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClientResponses_QuotationResponseId",

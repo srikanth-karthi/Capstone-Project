@@ -153,6 +153,11 @@ body {
     .hamburger-menu {
       display: flex;
     }
+    .modal-grid
+    {
+      gap: 10px;
+      flex-direction: column;
+    }
   }
 
 .modal {
