@@ -7,7 +7,6 @@ WORKDIR /src
 COPY ["EventManagementApp.csproj", "."]
 RUN dotnet restore "./EventManagementApp.csproj"
 COPY . .
-WORKDIR "/src"
 RUN dotnet build "./EventManagementApp.csproj" -c Release -o /app/build
 
 FROM build AS publish
@@ -18,4 +17,3 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 COPY wwwroot ./wwwroot
 ENTRYPOINT ["dotnet", "EventManagementApp.dll"]
-

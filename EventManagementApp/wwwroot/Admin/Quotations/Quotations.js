@@ -84,7 +84,7 @@ function createQuotationElement(quotation) {
                     : ""
                 }
             </div>
-            <div style="margin-left: auto; margin-right:auto;">
+            <div class="quotation-item-right">
                 ${
                   quotation.foodPreference
                     ? `<p><strong>Food Preference:</strong> ${quotation.foodPreference}</p>`
@@ -171,7 +171,6 @@ ${
                 }
             `;
 
-     
       setTimeout(() => {
         responseDetails.style.opacity = 1;
       }, 100);
@@ -184,13 +183,15 @@ window.closeResponseModal = closeResponseModal;
 window.AddResponse = AddResponse;
 window.newQuotation = newQuotation;
 async function newQuotation() {
-  if (    document.getElementById("New Quotations").textContent == "New Quotations") {
- const newQuotation= await fetchData("api/admin/quotations?isnew=true");
+  if (
+    document.getElementById("New Quotations").textContent == "New Quotations"
+  ) {
+    const newQuotation = await fetchData("api/admin/quotations?isnew=true");
     if (newQuotation <= 0) {
       showToast("success", "info", "No New Quotations");
       return;
     }
-    quotations=newQuotation;
+    quotations = newQuotation;
     renderQuotations();
     document.getElementById("New Quotations").textContent = "All Quotations";
   } else {
@@ -198,7 +199,6 @@ async function newQuotation() {
     renderQuotations();
     document.getElementById("New Quotations").textContent = "New Quotations";
   }
-
 }
 function showAdminResponseForm(id) {
   document.getElementById("AddResponseform").reset();
@@ -251,7 +251,7 @@ function renderPagination() {
     pageButton.addEventListener("click", () => {
       currentPage = i;
       renderQuotations();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
     if (i === currentPage) {
@@ -267,14 +267,13 @@ function renderQuotations() {
   quotationsContainer.innerHTML = ``;
   const startIndex = (currentPage - 1) * quotationsPerPage;
   const endIndex = Math.min(startIndex + quotationsPerPage, quotations.length);
-  
+
   for (let i = startIndex; i < endIndex; i++) {
     quotationsContainer.appendChild(createQuotationElement(quotations[i]));
   }
 
   renderPagination();
 }
-
 
 function toggleresponsestatus() {
   const foodValue = document.getElementById("response-status").value;

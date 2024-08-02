@@ -127,6 +127,15 @@ body {
   .hamburger-menu {
     display: flex;
   }
+  .quotation-item
+  {
+    flex-direction: column;
+    gap:0 !important;
+  }
+  .quotation-item-right
+  {
+    margin: 0 !important;
+  }
 }
 .container {
   width: 90%;
@@ -162,6 +171,7 @@ h1 {
 .quotation h2,
 .quotation-item h2 {
   display: flex;
+  gap: 40px;
   align-items: center;
   margin: 0 0 10px 0;
   font-size: 1.2em;
@@ -177,7 +187,11 @@ h1 {
   line-height: 1.5;
   font-size: 0.9em;
 }
-
+.quotation-item-right
+{
+  margin-left: auto; 
+  margin-right:auto;
+}
 .quotation p strong {
   margin-right: 5px;
   font-family: "Montserrat", sans-serif;
@@ -239,7 +253,7 @@ h1 {
 
 .quotation-item {
   display: flex;
-  gap: 10px;
+  gap: 20px;
 }
 
 #response-details {

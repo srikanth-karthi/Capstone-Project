@@ -65,7 +65,7 @@ function createQuotationElement(quotation) {
                 <p><strong>Special Instructions:</strong> ${quotation.specialInstructions}</p>
                 ${quotation.foodPreference && quotation.foodPreference !== "NoFood" ? `<p><strong>Catering Instructions:</strong> ${quotation.cateringInstructions ? quotation.cateringInstructions : "Not provided"}</p>` : ""}
             </div>
-            <div style="margin-left: auto; margin-right:auto;">
+            <div class="quotation-item-right">
                 ${quotation.foodPreference ? `<p><strong>Food Preference:</strong> ${quotation.foodPreference}</p>` : ""}
                 <p><strong>Venue Type:</strong> ${quotation.venueType}</p>
                 <p><strong>Location Details:</strong> ${quotation.locationDetails}</p>
@@ -194,6 +194,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         quotationsContainer.appendChild(createQuotationElement(quotation));
     });
 
+
+
+});
     document.getElementById('profileBtn').addEventListener('click', function() {
         var popup = document.getElementById('profilePopup');
         if (popup.style.display === 'none' || popup.style.display === '') {
@@ -218,5 +221,3 @@ document.addEventListener("DOMContentLoaded", async () => {
             popup.style.display = 'none';
         }
       });
-
-});

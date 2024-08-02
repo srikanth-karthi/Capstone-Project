@@ -5,15 +5,13 @@ import { toggleDisplay } from "../../Package/Domtools.js";
 if (!localStorage.getItem("authToken")) {
   window.location.href = "/";
 }
-let reviews=[]
+let reviews = [];
 let events = [];
-var   currentEvent;
+var currentEvent;
 let services = [];
-   initialize();
+initialize();
 
-
-
-   const hamburgerMenu = document.querySelector(".hamburger-menu");
+const hamburgerMenu = document.querySelector(".hamburger-menu");
 const navLinks = document.querySelector(".nav-links");
 
 hamburgerMenu.addEventListener("click", function () {
@@ -30,13 +28,11 @@ window.addEventListener("click", function (event) {
 });
 
 async function initialize() {
-  events=await fetchData("api/events/Admin");
+  events = await fetchData("api/events/Admin");
 
   services = await fetchData("api/admin/eventCategory");
-  loadServices()
-loadEvents()
-
- 
+  loadServices();
+  loadEvents();
 }
 
 handleAuthId();
@@ -62,28 +58,25 @@ function removeQueryParam(param) {
   window.history.replaceState({}, document.title, url.toString());
 }
 
- function loadEvents() {
-
-
-    const eventList = document.querySelector(".event-list");
-    eventList.innerHTML = "";
-    events.forEach(event => {
-      const eventItem = document.createElement("div");
-      eventItem.classList.add("event-item");
-      eventItem.innerHTML = `
+function loadEvents() {
+  const eventList = document.querySelector(".event-list");
+  eventList.innerHTML = "";
+  events.forEach((event) => {
+    const eventItem = document.createElement("div");
+    eventItem.classList.add("event-item");
+    eventItem.innerHTML = `
         <img src="${event.poster}" alt="${event.eventName}">
         <h3>${event.eventName}</h3>
       `;
 
-      eventItem.addEventListener("click", () => showEventDetails(event.eventId));
+    eventItem.addEventListener("click", () => showEventDetails(event.eventId));
 
-      eventList.appendChild(eventItem);
-    });
-
+    eventList.appendChild(eventItem);
+  });
 }
 
 function showEventDetails(eventId) {
-  const event = events.find(event => event.eventId === eventId);
+  const event = events.find((event) => event.eventId === eventId);
   toggleDisplay("class", "event-container", "block");
   toggleDisplay("class", "main-content", "none");
 
@@ -95,107 +88,117 @@ function showEventDetails(eventId) {
       <img src="../../asserts/edit.svg" alt="Edit">
     </button>
   `;
-  document.getElementById("eventDate").innerText = new Date(event.eventDate).toLocaleDateString();
-  document.getElementById("eventTime").innerText = new Date(event.eventDate).toLocaleTimeString();
-  document.getElementById("ticketCost").innerText = `Standard Ticket: ₹ ${event.ticketCost} each`;
-  document.getElementById("numberOfTickets").innerText = `Number of Tickets: ${event.numberOfTickets}`;
-  document.getElementById("remainingTickets").innerText = `Tickets Available: ${event.remainingTickets}`;
-  document.getElementById("Booked").innerText = `Tickets Booked: ${event.numberOfTickets - event.remainingTickets}`;
+  document.getElementById("eventDate").innerText = new Date(
+    event.eventDate
+  ).toLocaleDateString();
+  document.getElementById("eventTime").innerText = new Date(
+    event.eventDate
+  ).toLocaleTimeString();
+  document.getElementById(
+    "ticketCost"
+  ).innerText = `Standard Ticket: ₹ ${event.ticketCost} each`;
+  document.getElementById(
+    "numberOfTickets"
+  ).innerText = `Number of Tickets: ${event.numberOfTickets}`;
+  document.getElementById(
+    "remainingTickets"
+  ).innerText = `Tickets Available: ${event.remainingTickets}`;
+  document.getElementById("Booked").innerText = `Tickets Booked: ${
+    event.numberOfTickets - event.remainingTickets
+  }`;
   document.getElementById("eventHost").innerText = event.description;
   document.getElementById("eventMap").src = event.maplink;
 }
 
+function loadServices() {
+  const serviceList = document.querySelector(".service-list");
+  serviceList.innerHTML = "";
+  const seeMoreBtn = document.getElementById("seeMoreBtn");
 
- function loadServices() {
+  services.forEach((service, index) => {
+    const serviceItem = document.createElement("div");
+    serviceItem.className = "service-item";
+    if (index >= 5) serviceItem.classList.add("hidden");
 
+    const img = document.createElement("img");
+    img.src = service.poster;
+    img.alt = service.eventName;
 
-    const serviceList = document.querySelector(".service-list");
-    serviceList.innerHTML = "";
-    const seeMoreBtn = document.getElementById("seeMoreBtn");
+    const eventName = document.createElement("div");
+    eventName.className = "event-name";
+    eventName.textContent = service.eventName;
 
-    services.forEach((service, index) => {
-      const serviceItem = document.createElement("div");
-      serviceItem.className = "service-item";
-      if (index >= 5) serviceItem.classList.add("hidden");
+    serviceItem.addEventListener("click", () =>
+      showServiceDetails(service.eventCategoryId)
+    );
 
-      const img = document.createElement("img");
-      img.src = service.poster;
-      img.alt = service.eventName;
+    serviceItem.appendChild(img);
+    serviceItem.appendChild(eventName);
+    serviceList.appendChild(serviceItem);
 
-      const eventName = document.createElement("div");
-      eventName.className = "event-name";
-      eventName.textContent = service.eventName;
-
-      serviceItem.addEventListener("click", () => showServiceDetails(service.eventCategoryId));
-
-      serviceItem.appendChild(img);
-      serviceItem.appendChild(eventName);
-      serviceList.appendChild(serviceItem);
-
-      seeMoreBtn.addEventListener("click", () => {
-        const hiddenItems = document.querySelectorAll(".service-item.hidden");
-        hiddenItems.forEach(item => item.classList.remove("hidden"));
-        seeMoreBtn.style.display = "none";
-      });
+    seeMoreBtn.addEventListener("click", () => {
+      const hiddenItems = document.querySelectorAll(".service-item.hidden");
+      hiddenItems.forEach((item) => item.classList.remove("hidden"));
+      seeMoreBtn.style.display = "none";
     });
-
+  });
 }
 
 function showServiceDetails(eventCategoryId) {
-  const service = services.find(service => service.eventCategoryId === eventCategoryId);
+  const service = services.find(
+    (service) => service.eventCategoryId === eventCategoryId
+  );
 
-  reviews=service.reviews
+  reviews = service.reviews;
   toggleDisplay("class", "event-category-container", "block");
   toggleDisplay("class", "main-content", "none");
 
   document.querySelector(".event-category-banner").src = service.poster;
   document.getElementById("event-category-eventTitle").innerHTML = `
     ${service.eventName} (${service.isActive ? "Active" : "Inactive"})
-    <button type="button" onclick="openEditEventServiceModal(${service.eventCategoryId})">
+    <button type="button" onclick="openEditEventServiceModal(${
+      service.eventCategoryId
+    })">
       <img src="../../asserts/edit.svg" alt="Edit">
     </button>
   `;
-  document.getElementById("event-category-Description").innerText = service.description;
-
+  document.getElementById("event-category-Description").innerText =
+    service.description;
 }
 
-function showreviews()
-{
- if(reviews.length <= 0)
- {
-  showToast('warning',"info","No Review for the event")
-  return
- }
+function showreviews() {
+  if (reviews.length <= 0) {
+    showToast("warning", "info", "No Review for the event");
+    return;
+  }
 
-    const reviewModal = document.getElementById('reviewModal');
-    const closeModalBtn = document.querySelector('.review-close');
-    const reviewList = document.querySelector('.review-list');
+  const reviewModal = document.getElementById("reviewModal");
+  const closeModalBtn = document.querySelector(".review-close");
+  const reviewList = document.querySelector(".review-list");
 
-
-        reviewList.innerHTML = '';
-        reviews.forEach(review => {
-            const reviewItem = document.createElement('div');
-            reviewItem.classList.add('review-item');
-            reviewItem.innerHTML = `
+  reviewList.innerHTML = "";
+  reviews.forEach((review) => {
+    const reviewItem = document.createElement("div");
+    reviewItem.classList.add("review-item");
+    reviewItem.innerHTML = `
             <div class="review-header">
                 <div class="review-user">${review.userName}</div>
                 <div class="review-rating">Rating: ${review.rating} ⭐</div>
                 </div>
                 <div class="review-comments">${review.comments}</div>
             `;
-            reviewList.appendChild(reviewItem);
-        });
-        reviewModal.style.display = 'block';
+    reviewList.appendChild(reviewItem);
+  });
+  reviewModal.style.display = "block";
 
-
-    closeModalBtn.addEventListener('click', function() {
-        reviewModal.style.display = 'none';
-    });
+  closeModalBtn.addEventListener("click", function () {
+    reviewModal.style.display = "none";
+  });
 }
 
 function openEditEventModal(eventId) {
-  const event = events.find(e => e.eventId === eventId);
-  currentEvent=event
+  const event = events.find((e) => e.eventId === eventId);
+  currentEvent = event;
   document.getElementById("editDescription").value = event.description;
   document.getElementById("editMapLink").value = event.maplink;
   document.getElementById("editTicketCost").value = event.ticketCost;
@@ -209,8 +212,8 @@ function closeModalEvent() {
 }
 
 function openEditEventServiceModal(eventCategoryId) {
-  const service = services.find(e => e.eventCategoryId === eventCategoryId);
-  currentEvent=service
+  const service = services.find((e) => e.eventCategoryId === eventCategoryId);
+  currentEvent = service;
   document.getElementById("editServiceDescription").value = service.description;
   document.getElementById("toggle toggleService").checked = service.isActive;
   document.getElementById("editEventServiceModal").style.display = "flex";
@@ -222,9 +225,11 @@ function closeModalServiceEvent() {
 
 async function saveChangesEvent(event) {
   event.preventDefault();
-  
+
   const updatedTicketCost = document.getElementById("editTicketCost").value;
-  let updatedNumberOfTickets = document.getElementById("editNumberOfTickets").value;
+  let updatedNumberOfTickets = document.getElementById(
+    "editNumberOfTickets"
+  ).value;
   const updatedDescription = document.getElementById("editDescription").value;
   const updatedMapLink = document.getElementById("editMapLink").value;
   const eventBanner = document.getElementById("eventBanner").files[0];
@@ -248,8 +253,15 @@ async function saveChangesEvent(event) {
     formData.append("poster", eventBanner);
   }
 
-  const updatedEvent = await fetchData(`api/Events/${currentEvent.eventId}`, "PUT", formData, true);
-  const eventIndex = events.findIndex(e => e.eventId === currentEvent.eventId);
+  const updatedEvent = await fetchData(
+    `api/Events/${currentEvent.eventId}`,
+    "PUT",
+    formData,
+    true
+  );
+  const eventIndex = events.findIndex(
+    (e) => e.eventId === currentEvent.eventId
+  );
   if (eventIndex !== -1) {
     events[eventIndex] = { ...events[eventIndex], ...updatedEvent };
   }
@@ -272,8 +284,15 @@ async function saveChangesService(event) {
     formData.append("poster", poster);
   }
 
-  const updatedService = await fetchData(`api/admin/eventCategory/${currentEvent.eventCategoryId}`, "PUT", formData, true);
-  const serviceIndex = services.findIndex(e => e.eventCategoryId === currentEvent.eventCategoryId);
+  const updatedService = await fetchData(
+    `api/admin/eventCategory/${currentEvent.eventCategoryId}`,
+    "PUT",
+    formData,
+    true
+  );
+  const serviceIndex = services.findIndex(
+    (e) => e.eventCategoryId === currentEvent.eventCategoryId
+  );
   if (serviceIndex !== -1) {
     services[serviceIndex] = { ...services[serviceIndex], ...updatedService };
   }
@@ -289,20 +308,21 @@ document.getElementById("toggle").addEventListener("change", function () {
 document.getElementById("backButton").addEventListener("click", function () {
   toggleDisplay("class", "event-container", "none");
   toggleDisplay("class", "main-content", "block");
-  loadServices()
-  loadEvents()
+  loadServices();
+  loadEvents();
 });
 
-document.getElementById("event-category-back-button").addEventListener("click", function () {
-  toggleDisplay("class", "event-category-container", "none");
-  toggleDisplay("class", "main-content", "block");
-  loadServices()
-  loadEvents()
-});
+document
+  .getElementById("event-category-back-button")
+  .addEventListener("click", function () {
+    toggleDisplay("class", "event-category-container", "none");
+    toggleDisplay("class", "main-content", "block");
+    loadServices();
+    loadEvents();
+  });
 
 function openAddServiceModal() {
-  const form = document.getElementById('AddServiceform');
-  
+  const form = document.getElementById("AddServiceform");
 
   form.reset();
 
@@ -312,8 +332,7 @@ function closeModalAddService() {
   toggleDisplay("id", "AddServiceModal", "none");
 }
 function openAddEventModal() {
-  const form = document.getElementById('AddEventform');
-  
+  const form = document.getElementById("AddEventform");
 
   form.reset();
 
@@ -323,85 +342,85 @@ function closeModalAddEvent() {
   toggleDisplay("id", "AddEventModal", "none");
 }
 
-
 async function saveChangesAddService(event) {
   event.preventDefault();
-  
 
-  const title = document.getElementById('addServiceTitle').value;
-  const description = document.getElementById('addServiceDescription').value;
-  const isservice = document.getElementById('toggle isservice').checked;
-  const bannerFile = document.getElementById('addServiceBanner').files[0];
+  const title = document.getElementById("addServiceTitle").value;
+  const description = document.getElementById("addServiceDescription").value;
+  const isservice = document.getElementById("toggle isservice").checked;
+  const bannerFile = document.getElementById("addServiceBanner").files[0];
 
-  
-
-  if (!title || !description    ) {
-      alert('Please fill in all required fields.');
-      return false;
+  if (!title || !description) {
+    alert("Please fill in all required fields.");
+    return false;
   }
-  
 
   const formData = new FormData();
-  formData.append('EventName', title);
-  formData.append('description', description);
-  formData.append('IsService', isservice);
+  formData.append("EventName", title);
+  formData.append("description", description);
+  formData.append("IsService", isservice);
 
-  formData.append('Poster', bannerFile);
+  formData.append("Poster", bannerFile);
 
-
-  const newevent=await fetchData('api/admin/eventCategory',"POST",formData,true);
+  const newevent = await fetchData(
+    "api/admin/eventCategory",
+    "POST",
+    formData,
+    true
+  );
   services.push(newevent);
   showToast("success", "Success", "Service Added Successfully");
-  closeModalAddService()
+  closeModalAddService();
   loadServices();
-
-
 }
 async function saveChangesAddEvent(event) {
   event.preventDefault();
-  
 
-  const title = document.getElementById('addEventTitle').value;
-  const description = document.getElementById('addEventDescription').value;
-  const mapLink = document.getElementById('addEventMapLink').value;
-  const ticketCost = document.getElementById('addEventTicketCost').value;
-  const numberOfTickets = document.getElementById('addNumberOfTickets').value;
-  const bannerFile = document.getElementById('addEventBanner').files[0];
-  const eventDate = document.getElementById('addEventDate').value;
-  
+  const title = document.getElementById("addEventTitle").value;
+  const description = document.getElementById("addEventDescription").value;
+  const mapLink = document.getElementById("addEventMapLink").value;
+  const ticketCost = document.getElementById("addEventTicketCost").value;
+  const numberOfTickets = document.getElementById("addNumberOfTickets").value;
+  const bannerFile = document.getElementById("addEventBanner").files[0];
+  const eventDate = document.getElementById("addEventDate").value;
 
-  if (!title || !description || !mapLink || !ticketCost || !numberOfTickets || !eventDate) {
-      alert('Please fill in all required fields.');
-      return false;
+  if (
+    !title ||
+    !description ||
+    !mapLink ||
+    !ticketCost ||
+    !numberOfTickets ||
+    !eventDate
+  ) {
+    alert("Please fill in all required fields.");
+    return false;
   }
-  
 
   const formData = new FormData();
-  formData.append('EventName', title);
-  formData.append('description', description);
-  formData.append('Maplink', mapLink);
-  formData.append('TicketCost', ticketCost);
-  formData.append('NumberOfTickets', numberOfTickets);
-  formData.append('Poster', bannerFile);
-  formData.append('EventDate', eventDate);
-try {
-  const newevent=await fetchData('api/Events',"POST",formData,true);
-  events.push(newevent);
-  showToast("success", "Success", "Event  Added Successfully");
-  closeModalAddEvent()
-  loadEvents();
-} catch (error) {
-  
-  if (error.message.includes("400")) {
-
-    showToast("error", "Error", "Event Posted on weekdays ticket amount cannot be greater than ₹50");
+  formData.append("EventName", title);
+  formData.append("description", description);
+  formData.append("Maplink", mapLink);
+  formData.append("TicketCost", ticketCost);
+  formData.append("NumberOfTickets", numberOfTickets);
+  formData.append("Poster", bannerFile);
+  formData.append("EventDate", eventDate);
+  try {
+    const newevent = await fetchData("api/Events", "POST", formData, true);
+    events.push(newevent);
+    showToast("success", "Success", "Event  Added Successfully");
+    closeModalAddEvent();
+    loadEvents();
+  } catch (error) {
+    if (error.message.includes("400")) {
+      showToast(
+        "error",
+        "Error",
+        "Event Posted on weekdays ticket amount cannot be greater than ₹50"
+      );
+    }
   }
 }
-
-
-
-}
-window.showreviews=showreviews
+window.showreviews = showreviews;
 window.openEditEventModal = openEditEventModal;
 window.closeModalAddEvent = closeModalAddEvent;
 window.saveChangesEvent = saveChangesEvent;
@@ -419,8 +438,9 @@ function setMinDateTime() {
   const minDateTime = new Date();
   minDateTime.setDate(now.getDate() + 2);
   const minDateTimeString = minDateTime.toISOString().slice(0, 16);
-  document.getElementById('addEventDate').setAttribute('min', minDateTimeString);
+  document
+    .getElementById("addEventDate")
+    .setAttribute("min", minDateTimeString);
 }
 
 window.onload = setMinDateTime;
-

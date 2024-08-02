@@ -69,7 +69,7 @@ function rendertickets(tickets) {
   
       ticketsContainer.appendChild(ticketElement);
       new QRCode(document.getElementById(`qrcode-${ticketData.ticketId}`), {
-        text: `localhost:5232/api/ticket/checkin/${ticketData.ticketId}`,
+        text: `localhost:5500/api/ticket/checkin/${ticketData.ticketId}`,
         width: 128,
         height: 128,
       })
