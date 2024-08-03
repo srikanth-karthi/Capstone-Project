@@ -185,6 +185,9 @@ function calculateTotal() {
 }
 
 async function handlePayment() {
+  const buyTicketsButton = document.querySelector('.buy-tickets');
+  buyTicketsButton.disabled = true; // Corrected 'disable' to 'disabled'
+
   try {
     const booktickets = await fetchData("api/Ticket/book", "POST", {
       numberOfTickets: quantity,
@@ -208,18 +211,17 @@ async function handlePayment() {
           });
 
           events.forEach((event) => {
-     
             if (
               event.eventId ==
               document.getElementById("eventTitle").getAttribute("EventId")
             ) {
-              event.remainingTickets = event.remainingTickets - quantity;
+              event.remainingTickets -= quantity;
             }
           });
+
           quantity = 1;
-          const quantityDisplay = document.getElementById("quantity");
-          quantityDisplay.textContent = quantity;
-          document.getElementById("book-tickets").textContent ="Book now";
+          document.getElementById("quantity").textContent = quantity;
+          document.getElementById("book-tickets").textContent = "Book now";
           showToast("success", "Success", "Ticket Booked Successfully");
         } catch (error) {
           console.error("Error confirming payment:", error);
@@ -242,36 +244,35 @@ async function handlePayment() {
     rzp1.open();
   } catch (error) {
     if (error.message.includes("412")) {
-
-      error.message= JSON.parse(error.message)
-      if (error.message.body.avaliableTickets)
-
-        if(error.message.body.avaliableTickets==0)
-        {
-          document.querySelector(".ticket-container").innerHTML=` <img style="margin-top:30px;margin-left:60px;" src="../../asserts/soldout.png" width="70" alt="ticket-icon " />`
-          
+      const errorMessage = JSON.parse(error.message);
+      if (errorMessage.body.avaliableTickets === 0) {
+        document.querySelector(".ticket-container").innerHTML = `
+          <img style="margin-top:30px;margin-left:60px;" src="../../asserts/soldout.png" width="70" alt="ticket-icon" />
+        `;
+      }
+      events.forEach((event) => {
+        if (
+          event.eventId ==
+          document.getElementById("eventTitle").getAttribute("EventId")
+        ) {
+          event.remainingTickets = parseInt(errorMessage.body.avaliableTickets);
         }
-        events.forEach((event) => {
+      });
 
-          if (
-            event.eventId ==
-            document.getElementById("eventTitle").getAttribute("EventId")
-          ) {
-            event.remainingTickets = parseInt(
-             
-              error.message.body.avaliableTickets
-            );
-          }
-        });
-        quantity = 1
-        const quantityDisplay = document.getElementById("quantity");
-        quantityDisplay.textContent = quantity;
-        document.getElementById("book-tickets").textContent ="Book now";
-    
-      showToast("error", "Error", "Ticket not Avaliable");  
+      quantity = 1;
+      document.getElementById("quantity").textContent = quantity;
+      document.getElementById("book-tickets").textContent = "Book now";
+      showToast("error", "Error", "Tickets not available");
+    } else {
+      console.error("Error booking tickets:", error);
     }
+  } finally {
+    buyTicketsButton.disabled = false; // Re-enable the button
   }
 }
+
+window.openModal = handlePayment;
+
 
 window.openModal = handlePayment;
 window.openeventCategoryModal = openeventCategoryModal;

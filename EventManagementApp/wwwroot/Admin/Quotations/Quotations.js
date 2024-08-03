@@ -236,7 +236,13 @@ async function AddResponse(e) {
     currency: "inr",
     responseMessage: responseMessage,
   });
-
+quotations.forEach(element => {
+  if(element.quotationRequestId==quotationRequestId)
+  {
+    element.quotationStatus="Responded"
+  }
+});
+  renderQuotations();
   showResponseDetails(quotationRequestId);
   closeResponseModal();
 }

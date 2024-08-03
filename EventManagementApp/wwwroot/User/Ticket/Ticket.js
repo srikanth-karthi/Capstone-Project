@@ -7,7 +7,6 @@ if (!localStorage.getItem("authToken")) {
 }
 toggleDisplay("class", "event-container", "none");
 
-
 const hamburgerMenu = document.querySelector(".hamburger-menu");
 const navLinks = document.querySelector(".nav-links");
 
@@ -20,20 +19,21 @@ window.addEventListener("click", function (event) {
         navLinks.classList.remove("active");
     }
 });
-var tickets ;
+
+let tickets;
+
 document.addEventListener("DOMContentLoaded", async function () {
    tickets = await fetchData("api/Ticket/GetTickets");
    if(tickets.length <= 0) {
     showToast('warning','info',"No tickets Available")
-return
+    return;
   }
-  rendertickets(tickets)
+  rendertickets(tickets);
 });
-
 
 function rendertickets(tickets) {
     const ticketsContainer = document.getElementById("tickets-container");
-    ticketsContainer.innerHTML=``
+    ticketsContainer.innerHTML = ``;
     tickets.forEach((ticketData) => {
       const ticketElement = document.createElement("div");
       ticketElement.classList.add("ticket");
@@ -70,21 +70,25 @@ function rendertickets(tickets) {
       ticketsContainer.appendChild(ticketElement);
       new QRCode(document.getElementById(`qrcode-${ticketData.ticketId}`), {
         text: `https://eventmanagementapplication.azurewebsites.net/api/ticket/checkin/${ticketData.ticketId}`
-
-      })
+      });
     });
+
     document.querySelectorAll(".confirmticket").forEach((button) => {
       button.addEventListener("click", (event) => {
         const ticketId = event.target.getAttribute("data-ticketid");
         const quantity = event.target.getAttribute("data-quantity");
-        handlePayment(ticketId, quantity);
+        handlePayment(ticketId, quantity, event.target);
       });
     });
-  }
+}
 
-async function handlePayment(ticketId, quantity) {
+async function handlePayment(ticketId, quantity, buttonElement) {
+  // Disable the button to prevent multiple clicks
+  buttonElement.disabled = true;
+
   try {
-    const bookTickets = await fetchData(`api/Ticket/TicketRepayment/${ticketId}`, "POST")
+    const bookTickets = await fetchData(`api/Ticket/TicketRepayment/${ticketId}`, "POST");
+
     const options = {
       key: "rzp_test_kHemgfwkQxlJk2",
       amount: bookTickets.amount,
@@ -94,7 +98,7 @@ async function handlePayment(ticketId, quantity) {
       order_id: bookTickets.razorpayOrderId,
       handler: async function (response) {
         try {
-      await fetchData("api/Ticket/confirm", "POST", {
+          await fetchData("api/Ticket/confirm", "POST", {
             contentId: bookTickets.contentId,
             paymentId: response.razorpay_payment_id,
             RazorpayOrderId: response.razorpay_order_id,
@@ -102,10 +106,8 @@ async function handlePayment(ticketId, quantity) {
           });
 
           tickets.forEach((ticket) => {
-            if (
-              ticket.ticketId ==ticketId
-            ) {
-              ticket.paymentStatus="Completed"
+            if (ticket.ticketId == ticketId) {
+              ticket.paymentStatus = "Completed";
             }
           });
           rendertickets(tickets);
@@ -126,14 +128,17 @@ async function handlePayment(ticketId, quantity) {
         color: "#3399cc",
       },
     };
+
     const rzp1 = new Razorpay(options);
     rzp1.open();
   } catch (error) {
-   
-      console.error("Error booking tickets:", error);
-    
+    console.error("Error booking tickets:", error);
+  } finally {
+    // Re-enable the button after the process is complete
+    buttonElement.disabled = false;
   }
 }
+
 document.getElementById('profileBtn').addEventListener('click', function() {
   var popup = document.getElementById('profilePopup');
   if (popup.style.display === 'none' || popup.style.display === '') {
