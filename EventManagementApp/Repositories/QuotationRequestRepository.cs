@@ -21,6 +21,7 @@ namespace EventManagementApp.Repositories
             
             List<BasicQuotationRequestDTO> basicQuotationRequestDTOs = await _context.QuotationRequests
                 .Where(q=> IsNew == true ? q.QuotationStatus == QuotationStatus.Initiated : true)
+              
                 .Select(q => new BasicQuotationRequestDTO
                 {
                     QuotationRequestId = q.QuotationRequestId,
@@ -33,7 +34,10 @@ namespace EventManagementApp.Repositories
                     QuotationStatus = q.QuotationStatus,
                     EventStartDate = q.EventStartDate,
                     EventEndDate = q.EventEndDate,
-                    RequestDate = q.RequestDate
+                    RequestDate = q.RequestDate,
+                    Name=q.User.FullName,
+                    Email=q.User.Email,
+
                 })
                 .OrderByDescending(q => q.RequestDate)
                 .ToListAsync();

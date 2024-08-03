@@ -7,15 +7,18 @@ services:
     environment:
       - SA_PASSWORD=YourStrong@Passw0rd
       - ACCEPT_EULA=Y
+      - MSSQL_MEMORY_LIMIT_MB=4096  # Set memory limit for SQL Server to 4 GB
     ports:
       - "1433:1433"
     networks:
       - EventmanagementApp
+    deploy:
+      resources:
+        limits:
+          memory: 4G  # Set memory limit for the Docker container
 
   eventmanagement:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: srikanthkarthi/eventmanagementapp:latest
     depends_on:
       - sqlserver
     networks:

@@ -15,5 +15,9 @@ namespace EventManagementApp.DTOs.QuotationRequest
         public DateTime EventStartDate { get; set; }
         public DateTime EventEndDate { get; set; }
         public DateTime RequestDate { get; set; }
+
+        public string Name { get; set; }
+
+        public string Email { get; set; }
     }
 }

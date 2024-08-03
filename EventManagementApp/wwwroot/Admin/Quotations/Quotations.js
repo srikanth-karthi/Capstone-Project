@@ -64,6 +64,9 @@ function createQuotationElement(quotation) {
   }</div></h2>
         <div class="quotation-item">
             <div>
+             <p><strong>Email:</strong> 
+                  ${quotation.email}
+                </p>
                 <p><strong>Start Date:</strong> ${formatDate(
                   quotation.eventStartDate
                 )}</p>
@@ -85,6 +88,10 @@ function createQuotationElement(quotation) {
                 }
             </div>
             <div class="quotation-item-right">
+
+             <p><strong>Name:</strong> ${
+                  quotation.name
+                }</p>
                 ${
                   quotation.foodPreference
                     ? `<p><strong>Food Preference:</strong> ${quotation.foodPreference}</p>`

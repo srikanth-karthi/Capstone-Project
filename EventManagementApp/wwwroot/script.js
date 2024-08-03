@@ -6,7 +6,7 @@ function handleCredentialResponse(response) {
 
 async function api(response) {
     try {
-        const data = await fetch('http://localhost:5500/api/google', {
+        const data = await fetch('/api/google', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
