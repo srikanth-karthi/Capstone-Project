@@ -69,7 +69,7 @@ function rendertickets(tickets) {
   
       ticketsContainer.appendChild(ticketElement);
       new QRCode(document.getElementById(`qrcode-${ticketData.ticketId}`), {
-        text: `https://eventmanagementapplication.azurewebsites.net/${ticketData.ticketId}`
+        text: `https://eventmanagementapplication.azurewebsites.net/api/ticket/checkin/${ticketData.ticketId}`
 
       })
     });
