@@ -113,12 +113,10 @@ function showEventDetails(eventId) {
 function loadServices() {
   const serviceList = document.querySelector(".service-list");
   serviceList.innerHTML = "";
-  const seeMoreBtn = document.getElementById("seeMoreBtn");
 
-  services.forEach((service, index) => {
+  services.forEach((service) => {
     const serviceItem = document.createElement("div");
     serviceItem.className = "service-item";
-    if (index >= 5) serviceItem.classList.add("hidden");
 
     const img = document.createElement("img");
     img.src = service.poster;
@@ -136,11 +134,7 @@ function loadServices() {
     serviceItem.appendChild(eventName);
     serviceList.appendChild(serviceItem);
 
-    seeMoreBtn.addEventListener("click", () => {
-      const hiddenItems = document.querySelectorAll(".service-item.hidden");
-      hiddenItems.forEach((item) => item.classList.remove("hidden"));
-      seeMoreBtn.style.display = "none";
-    });
+
   });
 }
 
@@ -299,7 +293,7 @@ async function saveChangesService(event) {
   showServiceDetails(currentEvent.eventCategoryId);
   closeModalServiceEvent();
   showToast("success", "Success", "Service Updated Successfully");
-  
+
 }
 
 document.getElementById("toggle").addEventListener("change", function () {
@@ -372,9 +366,7 @@ async function saveChangesAddService(event) {
   services.push(newevent);
   showToast("success", "Success", "Service Added Successfully");
   closeModalAddService();
-  const seeMoreBtn = document.getElementById("seeMoreBtn");
 
-  seeMoreBtn.style.display = "block";
   loadServices();
 }
 async function saveChangesAddEvent(event) {
