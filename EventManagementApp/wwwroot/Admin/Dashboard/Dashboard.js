@@ -299,6 +299,7 @@ async function saveChangesService(event) {
   showServiceDetails(currentEvent.eventCategoryId);
   closeModalServiceEvent();
   showToast("success", "Success", "Service Updated Successfully");
+  
 }
 
 document.getElementById("toggle").addEventListener("change", function () {
@@ -371,6 +372,9 @@ async function saveChangesAddService(event) {
   services.push(newevent);
   showToast("success", "Success", "Service Added Successfully");
   closeModalAddService();
+  const seeMoreBtn = document.getElementById("seeMoreBtn");
+
+  seeMoreBtn.style.display = "block";
   loadServices();
 }
 async function saveChangesAddEvent(event) {
