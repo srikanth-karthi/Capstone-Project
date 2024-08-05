@@ -409,9 +409,11 @@ function toggleCateringDescription() {
 
 async function validateForm(event) {
   event.preventDefault();
-  const startDate = new Date(document.getElementById("start_date").value);
-  const endDate = new Date(document.getElementById("end_date").value);
+  const startDate = document.getElementById("start_date").value
+  const endDate = document.getElementById("end_date").value
   const today = new Date();
+
+
   today.setHours(0, 0, 0, 0);
 
   if (startDate >= endDate) {

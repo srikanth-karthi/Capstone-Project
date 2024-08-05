@@ -154,6 +154,10 @@ namespace EventManagementApp.Controllers
             {
                 return NotFound(ex.Message);
             }
+            catch (NotEnoughTicketsException ex)
+            {
+                return StatusCode(404, ex.Message);
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
