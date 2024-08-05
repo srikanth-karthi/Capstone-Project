@@ -136,6 +136,13 @@ async function loadServices() {
           service.eventName;
         document.getElementById("event-category-Description").innerText =
           service.description;
+
+          const categoryContainer = document.querySelector('.event-category-container');
+          if (categoryContainer) {
+            categoryContainer.scrollIntoView();
+          } else {
+            console.log('Element not found');
+          }
       });
 
       serviceItem.appendChild(img);
